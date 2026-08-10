@@ -3,7 +3,7 @@ import {
   createAnalytics,
   shopifyAppEventsAdapter,
   type AnalyticsAdapter
-} from "./analytics";
+} from "@standhigher/shopify-app-kit/analytics";
 
 describe("analytics", () => {
   it("calls adapters in order", async () => {

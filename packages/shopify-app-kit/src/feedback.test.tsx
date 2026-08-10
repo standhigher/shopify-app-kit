@@ -8,7 +8,7 @@ import {
   ToastProvider,
   useConfirm,
   useToast
-} from "./feedback";
+} from "@standhigher/shopify-app-kit/feedback";
 
 function ToastProbe() {
   const toast = useToast();

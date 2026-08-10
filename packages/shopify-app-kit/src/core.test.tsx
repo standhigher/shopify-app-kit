@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { ShopifyAppKitProvider, useShopifyAppKit } from "./core";
+import {
+  ShopifyAppKitProvider,
+  useShopifyAppKit
+} from "@standhigher/shopify-app-kit/core";
 
 function ContextProbe() {
   const kit = useShopifyAppKit();

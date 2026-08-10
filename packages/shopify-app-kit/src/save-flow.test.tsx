@@ -1,7 +1,11 @@
 import { act, render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { AppSaveBar, LeaveGuard, useDirtyForm } from "./save-flow";
+import {
+  AppSaveBar,
+  LeaveGuard,
+  useDirtyForm
+} from "@standhigher/shopify-app-kit/save-flow";
 
 describe("save flow", () => {
   it("tracks dirty, save, and discard state", async () => {

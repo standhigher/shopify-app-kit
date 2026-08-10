@@ -1,8 +1,11 @@
 import { renderHook } from "@testing-library/react";
 import type { PropsWithChildren } from "react";
 import { describe, expect, it, vi } from "vitest";
-import { ShopifyAppKitProvider } from "./core";
-import { useCollectionPicker, useProductPicker } from "./resource-picker";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import {
+  useCollectionPicker,
+  useProductPicker
+} from "@standhigher/shopify-app-kit/resource-picker";
 
 describe("resource picker", () => {
   it("returns product selections from the configured adapter", async () => {

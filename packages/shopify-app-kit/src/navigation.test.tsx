@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react";
 import type { PropsWithChildren } from "react";
 import { describe, expect, it, vi } from "vitest";
-import { ShopifyAppKitProvider } from "./core";
-import { useAppNavigation } from "./navigation";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 
 describe("navigation", () => {
   it("delegates app navigation to the configured adapter", async () => {
