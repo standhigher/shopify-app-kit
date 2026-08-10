@@ -1,0 +1,86 @@
+{
+  "name": "@standhigher/shopify-app-kit",
+  "version": "0.1.0",
+  "description": "Reusable React utilities for Shopify embedded apps.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "docs",
+    "examples"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js",
+      "require": "./dist/core.cjs"
+    },
+    "./feedback": {
+      "types": "./dist/feedback.d.ts",
+      "import": "./dist/feedback.js",
+      "require": "./dist/feedback.cjs"
+    },
+    "./save-flow": {
+      "types": "./dist/save-flow.d.ts",
+      "import": "./dist/save-flow.js",
+      "require": "./dist/save-flow.cjs"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "import": "./dist/navigation.js",
+      "require": "./dist/navigation.cjs"
+    },
+    "./resource-picker": {
+      "types": "./dist/resource-picker.d.ts",
+      "import": "./dist/resource-picker.js",
+      "require": "./dist/resource-picker.cjs"
+    },
+    "./analytics": {
+      "types": "./dist/analytics.d.ts",
+      "import": "./dist/analytics.js",
+      "require": "./dist/analytics.cjs"
+    }
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.20.1",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "jsdom": "^26.0.0",
+    "tsup": "^8.3.6",
+    "typescript-eslint": "^8.24.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

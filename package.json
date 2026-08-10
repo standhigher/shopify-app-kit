@@ -1,0 +1,14 @@
+{
+  "name": "shopify-app-kit-workspace",
+  "private": true,
+  "workspaces": [
+    "packages/shopify-app-kit"
+  ],
+  "scripts": {
+    "lint": "npm --prefix packages/shopify-app-kit run lint",
+    "test": "npm --prefix packages/shopify-app-kit run test",
+    "typecheck": "npm --prefix packages/shopify-app-kit run typecheck",
+    "build": "npm --prefix packages/shopify-app-kit run build",
+    "pack:dry-run": "cd packages/shopify-app-kit && npm pack --dry-run"
+  }
+}

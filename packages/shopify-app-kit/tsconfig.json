@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@standhigher/shopify-app-kit": ["src/index.ts"],
+      "@standhigher/shopify-app-kit/core": ["src/core.ts"],
+      "@standhigher/shopify-app-kit/feedback": ["src/feedback.ts"],
+      "@standhigher/shopify-app-kit/save-flow": ["src/save-flow.ts"],
+      "@standhigher/shopify-app-kit/navigation": ["src/navigation.ts"],
+      "@standhigher/shopify-app-kit/resource-picker": ["src/resource-picker.ts"],
+      "@standhigher/shopify-app-kit/analytics": ["src/analytics.ts"]
+    },
+    "jsx": "react-jsx",
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": ["src", "examples"],
+  "exclude": ["dist", "node_modules"]
+}
