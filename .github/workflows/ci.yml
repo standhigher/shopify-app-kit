@@ -17,7 +17,16 @@ jobs:
           cache: npm
       - run: npm ci --registry=https://registry.npmjs.org
       - run: npm run lint
-      - run: npm run test:ci
+      - name: Run tests
+        run: |
+          set +e
+          npm run test:ci > test-output.txt 2>&1
+          status=$?
+          cat test-output.txt
+          if [ "$status" -ne 0 ]; then
+            node -e 'const fs=require("node:fs");const output=fs.readFileSync("test-output.txt","utf8").trim().split("\n").slice(-80).join("\n");const escaped=output.replaceAll("%","%25").replaceAll("\r","%0D").replaceAll("\n","%0A");console.log(`::error title=Vitest failed::${escaped}`);'
+            exit "$status"
+          fi
       - run: npm run typecheck
       - run: npm run build
       - run: npm run pack:dry-run
