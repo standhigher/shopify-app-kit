@@ -1,6 +1,6 @@
 {
   "name": "@standhigher/shopify-app-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reusable React utilities for Shopify embedded apps.",
   "license": "MIT",
   "type": "module",
