@@ -128,7 +128,7 @@ npm run pack:dry-run
 
 ### 发布流程
 
-当前发布版本由 `packages/shopify-app-kit/package.json` 的 `version` 决定。tag 使用 `v<version>` 格式，例如 `v0.1.0`。
+当前发布版本由 `packages/shopify-app-kit/package.json` 的 `version` 决定。tag 使用 `v<version>` 格式，例如 `v0.2.0`。
 
 推荐流程：
 
@@ -138,9 +138,9 @@ npm run test:ci
 npm run typecheck
 npm run build
 npm run pack:dry-run
-git tag -a v0.1.0 -m "Release v0.1.0"
+git tag -a v0.2.0 -m "Release v0.2.0"
 git push origin main
-git push origin v0.1.0
+git push origin v0.2.0
 ```
 
 tag 推送会触发 `.github/workflows/publish.yml`。发布到 npmjs 需要 GitHub repository secret：
@@ -299,7 +299,7 @@ If tests fail in CI, the workflow writes the Vitest failure summary as a GitHub 
 
 ### Release Flow
 
-The release version comes from `packages/shopify-app-kit/package.json`. Tags use the `v<version>` format, for example `v0.1.0`.
+The release version comes from `packages/shopify-app-kit/package.json`. Tags use the `v<version>` format, for example `v0.2.0`.
 
 Recommended flow:
 
@@ -309,9 +309,9 @@ npm run test:ci
 npm run typecheck
 npm run build
 npm run pack:dry-run
-git tag -a v0.1.0 -m "Release v0.1.0"
+git tag -a v0.2.0 -m "Release v0.2.0"
 git push origin main
-git push origin v0.1.0
+git push origin v0.2.0
 ```
 
 Pushing a tag triggers `.github/workflows/publish.yml`. Publishing to npmjs requires this GitHub repository secret:

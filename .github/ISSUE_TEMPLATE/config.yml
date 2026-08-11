@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage documentation
+    url: https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs
+    about: Read usage, development, and release documentation before opening an issue.
+  - name: npm package
+    url: https://www.npmjs.com/package/@standhigher/shopify-app-kit
+    about: View the published package and install instructions.

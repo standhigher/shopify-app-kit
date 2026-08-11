@@ -33,6 +33,7 @@ jobs:
           fi
       - run: npm run typecheck
       - run: npm run build
+      - run: npm run build-storybook
       - run: npm publish --access public --provenance
         working-directory: packages/shopify-app-kit
         env:

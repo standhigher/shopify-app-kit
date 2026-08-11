@@ -1,16 +1,35 @@
 # @standhigher/shopify-app-kit
 
-Reusable React utilities for Shopify embedded apps.
+[![npm version](https://img.shields.io/npm/v/@standhigher/shopify-app-kit.svg)](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+[![npm downloads](https://img.shields.io/npm/dm/@standhigher/shopify-app-kit.svg)](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+[![CI](https://github.com/standhigher/shopify-app-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/standhigher/shopify-app-kit/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/@standhigher/shopify-app-kit.svg)](https://github.com/standhigher/shopify-app-kit/blob/main/LICENSE)
+[![docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 
-Phase 1 ships one public npm package with subpath exports. Import only the domain you need instead of pulling every helper from the root entry.
+Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.
 
-## Install
+[中文说明](./README.zh-CN.md)
+
+## Links
+
+- [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+- [GitHub repository](https://github.com/standhigher/shopify-app-kit)
+- [Demo / Storybook status](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
+- [API docs](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
+- [Usage docs](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
+- [Changelog](https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md)
+
+## Installation
 
 ```bash
 npm install @standhigher/shopify-app-kit react react-dom
 ```
 
-## Quick Start
+`react` and `react-dom` are peer dependencies. The host app provides them.
+
+## Basic Usage
+
+Wrap your app with `ShopifyAppKitProvider`:
 
 ```tsx
 import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
@@ -18,16 +37,15 @@ import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
 export function App() {
   return (
     <ShopifyAppKitProvider appName="Fulfillment Desk" shop="demo.myshopify.com">
-      <YourRoutes />
+      <Routes />
     </ShopifyAppKitProvider>
   );
 }
 ```
 
-## Subpath Exports
+Import only the domain you need through subpath exports:
 
 ```tsx
-import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
 import { useToast } from "@standhigher/shopify-app-kit/feedback";
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
@@ -35,12 +53,20 @@ import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 ```
 
-## Guides
+## Feature Overview
 
-- [Business User Guide / 业务使用者指南](./docs/business-users.md)
-- [Development, Debugging, And Release Guide / 本地开发调试部署文档](./docs/development.md)
+| Subpath | What it provides |
+|---|---|
+| `@standhigher/shopify-app-kit/core` | `ShopifyAppKitProvider`, runtime detection, message overrides, shared app context |
+| `@standhigher/shopify-app-kit/feedback` | Toasts, banners, modals, confirm dialog, promise-based confirmation hook |
+| `@standhigher/shopify-app-kit/save-flow` | Dirty form state, save bar fallback, browser leave guard |
+| `@standhigher/shopify-app-kit/navigation` | App route navigation, Shopify Admin links, safe external links |
+| `@standhigher/shopify-app-kit/resource-picker` | Product and collection picker hooks backed by host adapters |
+| `@standhigher/shopify-app-kit/analytics` | Event schema validation, adapter fan-out, console/noop/backend adapters |
 
-## Save Flow Example
+## Examples
+
+### Save Flow
 
 ```tsx
 import { AppSaveBar, LeaveGuard, useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
@@ -67,7 +93,7 @@ export function SettingsForm({ value, onSave, onDiscard }) {
 }
 ```
 
-## Analytics Example
+### Analytics
 
 ```ts
 import {
@@ -84,10 +110,76 @@ export const analytics = createAnalytics({
 });
 ```
 
-The App Events adapter only posts to your backend endpoint. OAuth, webhooks, Admin API tokens, App Events bearer tokens, and Shopify secrets must stay in the business backend.
+`shopifyAppEventsAdapter` only posts to your backend endpoint. OAuth, webhooks, Admin API tokens, App Events bearer tokens, and Shopify secrets must stay in the business backend.
 
-## Phase 1 Scope
+## Compatibility
 
-Included: core provider/runtime, feedback, save flow, navigation, product and collection pickers, analytics adapters, docs, examples, and CI quality checks.
+| Runtime | Support |
+|---|---|
+| React | `>=18` |
+| React DOM | `>=18` |
+| TypeScript | Tested with TypeScript 5.x |
+| Module formats | ESM, CJS, and type declarations |
+| Frameworks | Framework-agnostic React. Next.js is not a hard dependency. |
+| SSR import safety | Package entry points avoid browser globals during module import. |
+
+## Examples / Storybook / Demo
+
+Examples live in [`examples`](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples).
+
+Storybook is not configured yet. `npm run build-storybook` currently validates that the public documentation surface exists, so CI and release checks have a stable command while the visual demo surface is being prepared.
+
+## Package Quality
+
+The repository checks:
+
+- ESLint
+- Vitest and Testing Library tests
+- TypeScript typecheck
+- tsup build for ESM/CJS/DTS
+- npm package dry-run inspection
+- documentation surface check
+
+## Local Development
+
+```bash
+git clone https://github.com/standhigher/shopify-app-kit.git
+cd shopify-app-kit
+npm ci --registry=https://registry.npmjs.org
+npm run lint
+npm run test
+npm run typecheck
+npm run build
+npm run build-storybook
+npm run pack:dry-run
+```
+
+## Release Preparation
+
+Before publishing:
+
+```bash
+git diff --check
+npm run lint
+npm run test
+npm run typecheck
+npm run build
+npm run build-storybook
+cd packages/shopify-app-kit
+npm pack --dry-run --registry=https://registry.npmjs.org/
+```
+
+Publishing can be done by tag-based GitHub Actions when `NPM_TOKEN` is configured, or manually with npm web authentication:
+
+```bash
+npm login --auth-type=web --registry=https://registry.npmjs.org
+npm publish --access public --registry=https://registry.npmjs.org
+```
+
+See [release documentation](./docs/release.md) for dist-tag and checklist details.
+
+## Scope Boundary
+
+Included in the current public package: core provider/runtime, feedback, save flow, navigation, product and collection pickers, analytics adapters, docs, examples, and quality checks.
 
 Not included: Layout/UI Patterns, ScopeGate, BillingGate, CustomerPicker, complete AI components, OAuth, webhooks, direct Admin API calls, or direct Shopify App Events API calls.

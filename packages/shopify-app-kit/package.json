@@ -1,8 +1,43 @@
 {
   "name": "@standhigher/shopify-app-kit",
-  "version": "0.1.1",
-  "description": "Reusable React utilities for Shopify embedded apps.",
+  "version": "0.2.0",
+  "description": "Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.",
   "license": "MIT",
+  "author": "Standhigher",
+  "homepage": "https://github.com/standhigher/shopify-app-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/standhigher/shopify-app-kit.git",
+    "directory": "packages/shopify-app-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/standhigher/shopify-app-kit/issues"
+  },
+  "keywords": [
+    "shopify",
+    "shopify-app",
+    "shopify-embedded-app",
+    "shopify-app-bridge",
+    "react",
+    "typescript",
+    "frontend",
+    "components",
+    "hooks",
+    "ui-kit",
+    "feedback",
+    "toast",
+    "modal",
+    "save-bar",
+    "dirty-form",
+    "navigation",
+    "resource-picker",
+    "analytics",
+    "app-events",
+    "polaris",
+    "ecommerce",
+    "merchant-tools",
+    "saas"
+  ],
   "type": "module",
   "sideEffects": false,
   "publishConfig": {
@@ -11,8 +46,11 @@
   "files": [
     "dist",
     "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
     "docs",
-    "examples"
+    "examples",
+    "CHANGELOG.md"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -59,6 +97,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
+    "build-storybook": "node ./scripts/build-storybook-placeholder.mjs",
     "pack:dry-run": "npm pack --dry-run"
   },
   "peerDependencies": {

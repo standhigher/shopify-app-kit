@@ -1,0 +1,59 @@
+name: Bug report
+description: Report a reproducible problem in the package.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting a bug. Please keep the report focused and reproducible.
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Affected module
+      options:
+        - core
+        - feedback
+        - save-flow
+        - navigation
+        - resource-picker
+        - analytics
+        - docs
+        - build/package
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the problem and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide minimal code, steps, or a repository link.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include React, TypeScript, bundler, browser, and Node/npm versions when relevant.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I checked the README and docs.
+          required: true
+        - label: This report does not include secrets, tokens, or private business data.
+          required: true

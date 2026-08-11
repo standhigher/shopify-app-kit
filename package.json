@@ -10,6 +10,7 @@
     "test:ci": "npm --prefix packages/shopify-app-kit run test -- --reporter=verbose --sequence.concurrent=false --maxWorkers=1",
     "typecheck": "npm --prefix packages/shopify-app-kit run typecheck",
     "build": "npm --prefix packages/shopify-app-kit run build",
+    "build-storybook": "npm --prefix packages/shopify-app-kit run build-storybook",
     "pack:dry-run": "cd packages/shopify-app-kit && npm pack --dry-run"
   }
 }

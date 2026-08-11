@@ -1,0 +1,49 @@
+name: Feature request
+description: Suggest an improvement or new package capability.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for suggesting an improvement. Please explain the use case before the solution.
+  - type: dropdown
+    id: module
+    attributes:
+      label: Target module
+      options:
+        - core
+        - feedback
+        - save-flow
+        - navigation
+        - resource-picker
+        - analytics
+        - docs
+        - build/package
+        - new module
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What business or developer workflow should this improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API or behavior
+      description: Include example usage if possible.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope checks
+      options:
+        - label: This does not require browser-side Shopify secrets or Admin API tokens.
+          required: true
+        - label: This fits the package's frontend utility boundary.
+          required: true
