@@ -35,6 +35,11 @@ import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 ```
 
+## Guides
+
+- [Business User Guide / 业务使用者指南](./docs/business-users.md)
+- [Development, Debugging, And Release Guide / 本地开发调试部署文档](./docs/development.md)
+
 ## Save Flow Example
 
 ```tsx
