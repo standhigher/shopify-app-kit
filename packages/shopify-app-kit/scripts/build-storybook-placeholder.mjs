@@ -5,9 +5,12 @@ const requiredDocs = [
   "README.zh-CN.md",
   "docs/core.md",
   "docs/core.zh-CN.md",
+  "docs/core-http-error-design.zh-CN.md",
   "docs/business-users.md",
   "docs/development.md",
   "docs/app-events.md",
+  "docs/analytics.md",
+  "docs/analytics.zh-CN.md",
   "docs/resource-picker.md",
   "docs/save-flow.md"
 ];

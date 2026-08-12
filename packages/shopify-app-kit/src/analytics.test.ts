@@ -67,4 +67,38 @@ describe("analytics", () => {
     const [, request] = fetchSpy.mock.calls[0] ?? [];
     expect(request?.body).not.toMatch(/secret|token|bearer/i);
   });
+
+  it("falls back when globalThis is not available for app-events adapter", async () => {
+    const originalGlobalThis = globalThis;
+    const fetchSpy = vi.fn().mockResolvedValue({ ok: true });
+
+    Object.defineProperty(originalGlobalThis, "fetch", {
+      configurable: true,
+      value: fetchSpy
+    });
+
+    try {
+      Object.defineProperty(originalGlobalThis, "globalThis", {
+        configurable: true,
+        value: undefined
+      });
+
+      const adapter = shopifyAppEventsAdapter({
+        endpoint: "/api/shopify/app-events"
+      });
+
+      await adapter.track({
+        name: "app_loaded",
+        attributes: { surface: "settings" }
+      });
+    } finally {
+      Object.defineProperty(originalGlobalThis, "globalThis", {
+        configurable: true,
+        value: originalGlobalThis
+      });
+      vi.unstubAllGlobals();
+    }
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
 });

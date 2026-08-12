@@ -1,13 +1,38 @@
 import type { AnalyticsAdapter } from "../analytics-types";
 
+type FetchLike = typeof fetch;
+type RuntimeGlobal = {
+  fetch?: FetchLike;
+};
+
 export interface ShopifyAppEventsAdapterOptions {
   endpoint: string;
-  fetch?: typeof globalThis.fetch;
+  fetch?: FetchLike;
+}
+
+function getRuntimeGlobal(): RuntimeGlobal | undefined {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+
+  if (typeof window !== "undefined") {
+    return window;
+  }
+
+  if (typeof self !== "undefined") {
+    return self;
+  }
+
+  if (typeof global !== "undefined") {
+    return global as RuntimeGlobal;
+  }
+
+  return Function("return this")() as RuntimeGlobal | undefined;
 }
 
 export function shopifyAppEventsAdapter({
   endpoint,
-  fetch: fetchImpl = globalThis.fetch
+  fetch: fetchImpl = getRuntimeGlobal()?.fetch
 }: ShopifyAppEventsAdapterOptions): AnalyticsAdapter {
   return {
     async track(event) {
@@ -15,7 +40,9 @@ export function shopifyAppEventsAdapter({
         throw new Error("fetch is required for shopifyAppEventsAdapter.");
       }
 
-      const response = await fetchImpl(endpoint, {
+      const runtimeGlobal = getRuntimeGlobal();
+      const fetchLike = runtimeGlobal ? fetchImpl.bind(runtimeGlobal) : fetchImpl;
+      const response = await fetchLike(endpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ event })

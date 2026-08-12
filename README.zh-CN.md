@@ -16,6 +16,8 @@
 
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [Core HTTP 与 Error](./packages/shopify-app-kit/docs/core.zh-CN.md)
+- [Core HTTP / Error 设计实现说明](./packages/shopify-app-kit/docs/core-http-error-design.zh-CN.md)
+- [Analytics 使用说明](./packages/shopify-app-kit/docs/analytics.zh-CN.md)
 - [使用文档](./packages/shopify-app-kit/docs/business-users.md)
 - [开发文档](./packages/shopify-app-kit/docs/development.md)
 - [发布文档](./packages/shopify-app-kit/docs/release.md)

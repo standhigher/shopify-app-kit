@@ -16,6 +16,7 @@ The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify
 
 - [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [Core HTTP and Error](./packages/shopify-app-kit/docs/core.md)
+- [Analytics](./packages/shopify-app-kit/docs/analytics.md)
 - [Usage docs](./packages/shopify-app-kit/docs/business-users.md)
 - [Development docs](./packages/shopify-app-kit/docs/development.md)
 - [Release docs](./packages/shopify-app-kit/docs/release.md)

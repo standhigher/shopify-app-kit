@@ -17,6 +17,7 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 - [Demo / Storybook status](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API docs](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP and Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.md)
+- [Analytics](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/analytics.md)
 - [Usage docs](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
 - [Changelog](https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md)
 

@@ -17,6 +17,8 @@
 - [Demo / Storybook 状态](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API 文档](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP 与 Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.zh-CN.md)
+- [Core HTTP / Error 设计实现说明](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core-http-error-design.zh-CN.md)
+- [Analytics 使用说明](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/analytics.zh-CN.md)
 - [使用文档](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
 - [更新日志](https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md)
 
