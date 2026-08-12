@@ -99,4 +99,41 @@ describe("core http", () => {
     expect(http.put).toEqual(expect.any(Function));
     expect(http.delete).toEqual(expect.any(Function));
   });
+
+  it("falls back when globalThis is not available", async () => {
+    const originalGlobalThis = globalThis;
+    const fetchSpy = vi.fn().mockResolvedValue(
+      jsonResponse({
+        code: "SUCCESS",
+        message: "success",
+        data: { ok: true },
+        traceId: "trace-fallback"
+      })
+    );
+
+    Object.defineProperty(originalGlobalThis, "fetch", {
+      configurable: true,
+      value: fetchSpy
+    });
+
+    let result: unknown;
+
+    try {
+      Object.defineProperty(originalGlobalThis, "globalThis", {
+        configurable: true,
+        value: undefined
+      });
+
+      const client = createHttpClient();
+      result = await client.get("/api/fallback");
+    } finally {
+      Object.defineProperty(originalGlobalThis, "globalThis", {
+        configurable: true,
+        value: originalGlobalThis
+      });
+      vi.unstubAllGlobals();
+    }
+
+    expect(result).toEqual({ ok: true });
+  });
 });

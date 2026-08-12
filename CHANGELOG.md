@@ -4,6 +4,12 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.3.1] - 2026-08-12
+
+### Fixed
+
+- Added runtime global fallback for Core HTTP so older environments without `globalThis` can still resolve `fetch` and request id generation.
+
 ## [0.3.0] - 2026-08-12
 
 ### Added

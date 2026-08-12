@@ -11,21 +11,49 @@ const DEFAULT_TIMEOUT = 15000;
 const DEFAULT_RETRY = 1;
 const RETRYABLE_STATUS = 500;
 
+type RuntimeGlobal = {
+  crypto?: Crypto;
+  fetch?: FetchLike;
+};
+
+function getRuntimeGlobal(): RuntimeGlobal | undefined {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+
+  if (typeof window !== "undefined") {
+    return window;
+  }
+
+  if (typeof self !== "undefined") {
+    return self;
+  }
+
+  if (typeof global !== "undefined") {
+    return global as RuntimeGlobal;
+  }
+
+  return Function("return this")() as RuntimeGlobal | undefined;
+}
+
 function defaultRequestId() {
-  if (globalThis.crypto?.randomUUID) {
-    return globalThis.crypto.randomUUID();
+  const runtimeGlobal = getRuntimeGlobal();
+
+  if (runtimeGlobal?.crypto?.randomUUID) {
+    return runtimeGlobal.crypto.randomUUID();
   }
 
   return `req_${Date.now()}_${Math.random().toString(36).slice(2)}`;
 }
 
 function resolveFetch(fetchLike?: FetchLike): FetchLike {
-  const candidate = fetchLike ?? globalThis.fetch;
+  const runtimeGlobal = getRuntimeGlobal();
+  const candidate = fetchLike ?? runtimeGlobal?.fetch;
   if (!candidate) {
     throw new Error("A fetch implementation is required.");
   }
 
-  return candidate.bind(globalThis) as FetchLike;
+  return runtimeGlobal ? (candidate.bind(runtimeGlobal) as FetchLike) : candidate;
 }
 
 function mergeHeaders(...headers: Array<HeadersInit | undefined>) {
