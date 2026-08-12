@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.3.0] - 2026-08-12
+
+### Added
+
+- Added Core HTTP and Error modules with public `http` and `error` subpath exports.
+- Added backend response envelope unwrapping, `ApiError` normalization, request ids, timeout handling, and GET retry behavior.
+
 ## [0.2.0] - 2026-08-11
 
 ### Added

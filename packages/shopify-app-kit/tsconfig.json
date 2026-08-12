@@ -8,6 +8,8 @@
     "paths": {
       "@standhigher/shopify-app-kit": ["src/index.ts"],
       "@standhigher/shopify-app-kit/core": ["src/core.ts"],
+      "@standhigher/shopify-app-kit/error": ["src/error.ts"],
+      "@standhigher/shopify-app-kit/http": ["src/http.ts"],
       "@standhigher/shopify-app-kit/feedback": ["src/feedback.ts"],
       "@standhigher/shopify-app-kit/save-flow": ["src/save-flow.ts"],
       "@standhigher/shopify-app-kit/navigation": ["src/navigation.ts"],

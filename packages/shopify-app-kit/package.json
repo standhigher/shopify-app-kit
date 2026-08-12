@@ -1,6 +1,6 @@
 {
   "name": "@standhigher/shopify-app-kit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.",
   "license": "MIT",
   "author": "Standhigher",
@@ -65,6 +65,16 @@
       "types": "./dist/core.d.ts",
       "import": "./dist/core.js",
       "require": "./dist/core.cjs"
+    },
+    "./error": {
+      "types": "./dist/error.d.ts",
+      "import": "./dist/error.js",
+      "require": "./dist/error.cjs"
+    },
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "import": "./dist/http.js",
+      "require": "./dist/http.cjs"
     },
     "./feedback": {
       "types": "./dist/feedback.d.ts",

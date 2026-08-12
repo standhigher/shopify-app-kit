@@ -16,6 +16,7 @@
 - [GitHub 仓库](https://github.com/standhigher/shopify-app-kit)
 - [Demo / Storybook 状态](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API 文档](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
+- [Core HTTP 与 Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.zh-CN.md)
 - [使用文档](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
 - [更新日志](https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md)
 
@@ -51,6 +52,8 @@ import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
 
 ## 功能概览
@@ -58,6 +61,8 @@ import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 | Subpath | 能力 |
 |---|---|
 | `@standhigher/shopify-app-kit/core` | Provider、运行环境检测、文案覆盖、应用上下文 |
+| `@standhigher/shopify-app-kit/http` | Embedded app 后端请求客户端，支持 timeout、request id、GET retry、响应解包 |
+| `@standhigher/shopify-app-kit/error` | `ApiError`、后端响应包识别、错误归一化 |
 | `@standhigher/shopify-app-kit/feedback` | Toast、Banner、Modal、确认弹窗、Promise 风格确认 hook |
 | `@standhigher/shopify-app-kit/save-flow` | 脏数据状态、保存条 fallback、浏览器离开保护 |
 | `@standhigher/shopify-app-kit/navigation` | App 内跳转、Shopify Admin 链接、安全外链 |
@@ -113,6 +118,24 @@ export const analytics = createAnalytics({
 ```
 
 `shopifyAppEventsAdapter` 只请求业务后端 endpoint。OAuth、Webhook、Admin API token、App Events bearer token 和 Shopify secret 必须留在业务后端。
+
+### Core HTTP
+
+```ts
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
+
+try {
+  const settings = await http.get<Settings>("/api/settings");
+  await http.post("/api/settings", settings);
+} catch (error) {
+  if (error instanceof ApiError) {
+    console.error(error.code, error.requestId);
+  }
+}
+```
+
+HTTP client 会解包统一后端响应，默认 timeout 为 `15000ms`，仅对 `GET` 请求的网络错误、timeout 和 HTTP `5xx` 重试。更多细节见 [Core HTTP 与 Error](./docs/core.zh-CN.md)，也可查看 [English docs](./docs/core.md)。
 
 ## 兼容性
 

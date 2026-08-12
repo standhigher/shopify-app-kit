@@ -16,6 +16,7 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 - [GitHub repository](https://github.com/standhigher/shopify-app-kit)
 - [Demo / Storybook status](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API docs](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
+- [Core HTTP and Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.md)
 - [Usage docs](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
 - [Changelog](https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md)
 
@@ -51,6 +52,8 @@ import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
 
 ## Feature Overview
@@ -58,6 +61,8 @@ import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 | Subpath | What it provides |
 |---|---|
 | `@standhigher/shopify-app-kit/core` | `ShopifyAppKitProvider`, runtime detection, message overrides, shared app context |
+| `@standhigher/shopify-app-kit/http` | Typed HTTP client for embedded app backend calls, timeout, request id, GET retry, response unwrapping |
+| `@standhigher/shopify-app-kit/error` | `ApiError`, backend envelope detection, error normalization |
 | `@standhigher/shopify-app-kit/feedback` | Toasts, banners, modals, confirm dialog, promise-based confirmation hook |
 | `@standhigher/shopify-app-kit/save-flow` | Dirty form state, save bar fallback, browser leave guard |
 | `@standhigher/shopify-app-kit/navigation` | App route navigation, Shopify Admin links, safe external links |
@@ -111,6 +116,24 @@ export const analytics = createAnalytics({
 ```
 
 `shopifyAppEventsAdapter` only posts to your backend endpoint. OAuth, webhooks, Admin API tokens, App Events bearer tokens, and Shopify secrets must stay in the business backend.
+
+### Core HTTP
+
+```ts
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
+
+try {
+  const settings = await http.get<Settings>("/api/settings");
+  await http.post("/api/settings", settings);
+} catch (error) {
+  if (error instanceof ApiError) {
+    console.error(error.code, error.requestId);
+  }
+}
+```
+
+The HTTP client unwraps the shared backend envelope, defaults to a `15000ms` timeout, and retries only `GET` requests for network errors, timeout, and HTTP `5xx`. See [Core HTTP and Error](./docs/core.md) or [中文文档](./docs/core.zh-CN.md).
 
 ## Compatibility
 

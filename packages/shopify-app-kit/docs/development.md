@@ -90,9 +90,19 @@ npm --prefix packages/shopify-app-kit run test -- src/save-flow.test.tsx
 
 ```ts
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
 
 Vitest 通过 `packages/shopify-app-kit/vitest.config.ts` 将这些 public subpath 映射到本地源码，避免测试绕过真实导出边界。
+
+新增 public subpath 时需要同步更新：
+
+- `packages/shopify-app-kit/package.json` 的 `exports`
+- `packages/shopify-app-kit/tsup.config.ts` 的 `entry`
+- `packages/shopify-app-kit/tsconfig.json` 的 `paths`
+- `packages/shopify-app-kit/vitest.config.ts` 的 alias
+- README、`docs/core.md` / `docs/core.zh-CN.md` 等关联文档
 
 ### 打包检查
 
@@ -261,9 +271,19 @@ When debugging exports, import from public subpaths:
 
 ```ts
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
 
 `packages/shopify-app-kit/vitest.config.ts` maps public subpaths to local source files so tests exercise the same boundaries that consumers use.
+
+When adding a public subpath, update:
+
+- `packages/shopify-app-kit/package.json` `exports`
+- `packages/shopify-app-kit/tsup.config.ts` `entry`
+- `packages/shopify-app-kit/tsconfig.json` `paths`
+- `packages/shopify-app-kit/vitest.config.ts` aliases
+- README, `docs/core.md` / `docs/core.zh-CN.md`, and related docs
 
 ### Package Inspection
 
