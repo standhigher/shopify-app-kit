@@ -15,6 +15,7 @@
 实际发布包位于 [`packages/shopify-app-kit`](./packages/shopify-app-kit)。
 
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+- [Core HTTP 与 Error](./packages/shopify-app-kit/docs/core.zh-CN.md)
 - [使用文档](./packages/shopify-app-kit/docs/business-users.md)
 - [开发文档](./packages/shopify-app-kit/docs/development.md)
 - [发布文档](./packages/shopify-app-kit/docs/release.md)
@@ -30,6 +31,7 @@ npm install @standhigher/shopify-app-kit react react-dom
 
 ```tsx
 import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { http } from "@standhigher/shopify-app-kit/http";
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 ```
 

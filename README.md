@@ -15,6 +15,7 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify-app-kit).
 
 - [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+- [Core HTTP and Error](./packages/shopify-app-kit/docs/core.md)
 - [Usage docs](./packages/shopify-app-kit/docs/business-users.md)
 - [Development docs](./packages/shopify-app-kit/docs/development.md)
 - [Release docs](./packages/shopify-app-kit/docs/release.md)
@@ -30,6 +31,7 @@ npm install @standhigher/shopify-app-kit react react-dom
 
 ```tsx
 import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { http } from "@standhigher/shopify-app-kit/http";
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 ```
 

@@ -40,6 +40,7 @@ import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { http } from "@standhigher/shopify-app-kit/http";
 ```
 
 ### 能力地图
@@ -47,6 +48,8 @@ import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 | 模块 | 业务用途 | 典型接入点 |
 |---|---|---|
 | `core` | 应用上下文、运行环境、默认文案 | App 根组件 |
+| `http` | Embedded app 后端请求、响应解包、错误归一化 | API service、loader/action、表单提交 |
+| `error` | `ApiError`、业务错误识别、requestId 追踪 | 错误边界、toast/banner、日志埋点 |
 | `feedback` | Toast、Banner、Modal、确认弹窗 | 表单提交、危险操作、状态提示 |
 | `save-flow` | 脏数据判断、保存条、离开保护 | 设置页、编辑页、配置页 |
 | `navigation` | App 内跳转、Admin 跳转、外链跳转 | 菜单、按钮、操作入口 |
@@ -98,6 +101,24 @@ export const analytics = createAnalytics({
 ```
 
 `shopifyAppEventsAdapter` 只会请求业务后端 endpoint。Shopify secret、Admin API token、App Events bearer token、OAuth token 都必须留在业务后端，不允许放进前端包或浏览器代码。
+
+### Core HTTP 与 Error
+
+```ts
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
+
+try {
+  const settings = await http.get<Settings>("/api/settings");
+  await http.post("/api/settings", settings);
+} catch (error) {
+  if (error instanceof ApiError) {
+    console.error(error.code, error.requestId);
+  }
+}
+```
+
+HTTP client 会解包业务后端统一响应，默认 timeout 为 `15000ms`，仅对 `GET` 请求的网络错误、timeout 和 HTTP `5xx` 重试。后端响应约定和错误模型见 [Core HTTP 与 Error](./core.zh-CN.md)。
 
 ### Phase 1 不包含
 
@@ -158,6 +179,7 @@ import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
 import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { http } from "@standhigher/shopify-app-kit/http";
 ```
 
 ### Capability Map
@@ -165,6 +187,8 @@ import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
 | Module | Business Use | Typical Entry Point |
 |---|---|---|
 | `core` | App context, runtime, default messages | App root |
+| `http` | Embedded app backend requests, envelope unwrapping, normalized errors | API services, loaders/actions, form submit |
+| `error` | `ApiError`, business error detection, request id tracing | Error boundaries, toast/banner, logs |
 | `feedback` | Toast, banner, modal, confirm dialog | Form submit, destructive action, status message |
 | `save-flow` | Dirty state, save bar, leave guard | Settings and edit pages |
 | `navigation` | App navigation, Admin links, external links | Menus, buttons, action entries |
@@ -216,6 +240,24 @@ export const analytics = createAnalytics({
 ```
 
 `shopifyAppEventsAdapter` only posts to your backend endpoint. Shopify secrets, Admin API tokens, App Events bearer tokens, and OAuth tokens must stay in the business backend.
+
+### Core HTTP And Error
+
+```ts
+import { http } from "@standhigher/shopify-app-kit/http";
+import { ApiError } from "@standhigher/shopify-app-kit/error";
+
+try {
+  const settings = await http.get<Settings>("/api/settings");
+  await http.post("/api/settings", settings);
+} catch (error) {
+  if (error instanceof ApiError) {
+    console.error(error.code, error.requestId);
+  }
+}
+```
+
+The HTTP client unwraps the shared backend envelope, defaults to a `15000ms` timeout, and retries only `GET` requests for network errors, timeout, and HTTP `5xx`. See [Core HTTP and Error](./core.md) for the backend contract and error model.
 
 ### Not Included In Phase 1
 

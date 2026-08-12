@@ -8,6 +8,14 @@ export default defineConfig({
     alias: [
       { find: "@standhigher/shopify-app-kit/core", replacement: resolve(__dirname, "src/core.ts") },
       {
+        find: "@standhigher/shopify-app-kit/error",
+        replacement: resolve(__dirname, "src/error.ts")
+      },
+      {
+        find: "@standhigher/shopify-app-kit/http",
+        replacement: resolve(__dirname, "src/http.ts")
+      },
+      {
         find: "@standhigher/shopify-app-kit/feedback",
         replacement: resolve(__dirname, "src/feedback.ts")
       },

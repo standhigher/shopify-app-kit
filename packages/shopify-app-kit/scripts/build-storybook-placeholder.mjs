@@ -3,6 +3,8 @@ import { existsSync } from "node:fs";
 const requiredDocs = [
   "README.md",
   "README.zh-CN.md",
+  "docs/core.md",
+  "docs/core.zh-CN.md",
   "docs/business-users.md",
   "docs/development.md",
   "docs/app-events.md",
