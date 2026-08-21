@@ -52,7 +52,7 @@ import { useToast } from "@standhigher/shopify-app-kit/feedback";
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
-import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { analytics, initAnalytics } from "@standhigher/shopify-app-kit/analytics";
 import { http } from "@standhigher/shopify-app-kit/http";
 import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
@@ -68,7 +68,7 @@ import { ApiError } from "@standhigher/shopify-app-kit/error";
 | `@standhigher/shopify-app-kit/save-flow` | Dirty form state, save bar fallback, browser leave guard |
 | `@standhigher/shopify-app-kit/navigation` | App route navigation, Shopify Admin links, safe external links |
 | `@standhigher/shopify-app-kit/resource-picker` | Product and collection picker hooks backed by host adapters |
-| `@standhigher/shopify-app-kit/analytics` | Event schema validation, adapter fan-out, console/noop/backend adapters |
+| `@standhigher/shopify-app-kit/analytics` | Global event facade, event schema validation, adapter fan-out, console/noop/backend adapters |
 
 ## Examples
 
@@ -103,16 +103,22 @@ export function SettingsForm({ value, onSave, onDiscard }) {
 
 ```ts
 import {
-  createAnalytics,
+  analytics,
   consoleAnalyticsAdapter,
+  initAnalytics,
   shopifyAppEventsAdapter
 } from "@standhigher/shopify-app-kit/analytics";
 
-export const analytics = createAnalytics({
+initAnalytics({
   adapters: [
     consoleAnalyticsAdapter(),
     shopifyAppEventsAdapter({ endpoint: "/api/shopify/app-events" })
   ]
+});
+
+await analytics.track({
+  name: "settings_saved",
+  attributes: { surface: "shipping_rules" }
 });
 ```
 

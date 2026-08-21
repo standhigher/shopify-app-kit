@@ -4,6 +4,50 @@
 
 Analytics 模块为 Shopify embedded app 提供一个轻量的前端事件上报门面。它负责校验事件、补充时间戳，并把事件分发给一个或多个 adapter。
 
+## 推荐的全局门面用法
+
+大多数业务应用建议在应用启动时初始化一次 analytics，然后业务模块统一导入稳定的 `analytics` 门面。
+
+```ts
+// app/analytics.ts
+import {
+  analytics,
+  consoleAnalyticsAdapter,
+  initAnalytics,
+  shopifyAppEventsAdapter
+} from "@standhigher/shopify-app-kit/analytics";
+
+initAnalytics({
+  adapters: [
+    consoleAnalyticsAdapter(),
+    shopifyAppEventsAdapter({ endpoint: "/api/shopify/app-events" })
+  ]
+});
+
+export { analytics };
+```
+
+各业务模块无需再通过 props 传入 analytics 实例，可以直接调用：
+
+```ts
+import { analytics } from "./analytics";
+
+await analytics.track({
+  name: "settings_saved",
+  attributes: { surface: "shipping_rules" }
+});
+```
+
+导出的 `analytics` 对象是稳定的。若在 `initAnalytics(...)` 之前调用 `analytics.track(...)`，它会 no-op；开发环境只警告一次用于提示接入顺序，生产环境保持静默。
+
+辅助方法：
+
+- `initAnalytics(options)` 创建并保存全局 client。重复调用会替换当前 client。
+- `getAnalytics()` 返回已初始化的 client；未初始化时返回 no-op 门面。
+- `resetAnalytics()` 清空全局 client 和警告状态，主要用于测试。
+
+SSR 注意事项：全局门面更适合浏览器端 / Shopify embedded app 客户端代码。不要在服务端模块级全局实例里保存请求级 shop 信息、用户身份、secret 或后端凭据。
+
 ## 事件模型
 
 ```ts
@@ -49,6 +93,8 @@ export const analytics = createAnalytics({
   ]
 });
 ```
+
+当你需要隔离 client 时可以直接使用 `createAnalytics`，例如测试、Story fixture 或高级依赖注入。普通业务模块建议优先使用上面的全局门面。
 
 ## 校验规则
 

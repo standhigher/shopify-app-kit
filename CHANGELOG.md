@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.4.0] - 2026-08-21
+
+### Added
+
+- Added a global Analytics facade with one-time initialization helpers for business modules.
+- Documented the recommended global Analytics setup in English and Chinese docs.
+
 ## [0.3.2] - 2026-08-12
 
 ### Added

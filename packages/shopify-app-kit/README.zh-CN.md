@@ -53,7 +53,7 @@ import { useToast } from "@standhigher/shopify-app-kit/feedback";
 import { useDirtyForm } from "@standhigher/shopify-app-kit/save-flow";
 import { useAppNavigation } from "@standhigher/shopify-app-kit/navigation";
 import { useProductPicker } from "@standhigher/shopify-app-kit/resource-picker";
-import { createAnalytics } from "@standhigher/shopify-app-kit/analytics";
+import { analytics, initAnalytics } from "@standhigher/shopify-app-kit/analytics";
 import { http } from "@standhigher/shopify-app-kit/http";
 import { ApiError } from "@standhigher/shopify-app-kit/error";
 ```
@@ -69,7 +69,7 @@ import { ApiError } from "@standhigher/shopify-app-kit/error";
 | `@standhigher/shopify-app-kit/save-flow` | 脏数据状态、保存条 fallback、浏览器离开保护 |
 | `@standhigher/shopify-app-kit/navigation` | App 内跳转、Shopify Admin 链接、安全外链 |
 | `@standhigher/shopify-app-kit/resource-picker` | 产品和集合选择 hook，通过业务 adapter 接入 |
-| `@standhigher/shopify-app-kit/analytics` | 事件 schema 校验、多 adapter 分发、console/noop/backend adapter |
+| `@standhigher/shopify-app-kit/analytics` | 全局事件上报门面、事件 schema 校验、多 adapter 分发、console/noop/backend adapter |
 
 ## 示例
 
@@ -106,16 +106,22 @@ export function SettingsForm({ value, onSave, onDiscard }) {
 
 ```ts
 import {
-  createAnalytics,
+  analytics,
   consoleAnalyticsAdapter,
+  initAnalytics,
   shopifyAppEventsAdapter
 } from "@standhigher/shopify-app-kit/analytics";
 
-export const analytics = createAnalytics({
+initAnalytics({
   adapters: [
     consoleAnalyticsAdapter(),
     shopifyAppEventsAdapter({ endpoint: "/api/shopify/app-events" })
   ]
+});
+
+await analytics.track({
+  name: "settings_saved",
+  attributes: { surface: "shipping_rules" }
 });
 ```
 

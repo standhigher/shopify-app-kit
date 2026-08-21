@@ -4,6 +4,50 @@
 
 The Analytics module provides a small frontend event facade for Shopify embedded apps. It validates event payloads, adds timestamps, and fans events out to one or more adapters.
 
+## Recommended Global Facade
+
+For most business apps, initialize analytics once at app startup and import the stable `analytics` facade from feature modules.
+
+```ts
+// app/analytics.ts
+import {
+  analytics,
+  consoleAnalyticsAdapter,
+  initAnalytics,
+  shopifyAppEventsAdapter
+} from "@standhigher/shopify-app-kit/analytics";
+
+initAnalytics({
+  adapters: [
+    consoleAnalyticsAdapter(),
+    shopifyAppEventsAdapter({ endpoint: "/api/shopify/app-events" })
+  ]
+});
+
+export { analytics };
+```
+
+Feature modules can then track events without receiving analytics through props:
+
+```ts
+import { analytics } from "./analytics";
+
+await analytics.track({
+  name: "settings_saved",
+  attributes: { surface: "shipping_rules" }
+});
+```
+
+The exported `analytics` object is stable. If `analytics.track(...)` is called before `initAnalytics(...)`, it no-ops. Development builds warn once with a setup reminder; production builds stay silent.
+
+Additional helpers:
+
+- `initAnalytics(options)` creates and stores the global client. Calling it again replaces the current client.
+- `getAnalytics()` returns the initialized client, or the no-op facade before initialization.
+- `resetAnalytics()` clears the global client and warning state. It is mainly intended for tests.
+
+SSR note: the global facade is best suited for browser/client Shopify embedded app code. Do not store request-scoped shop data, user identity, secrets, or backend-only credentials in a module-level server instance.
+
 ## Event Model
 
 ```ts
@@ -49,6 +93,8 @@ export const analytics = createAnalytics({
   ]
 });
 ```
+
+Use `createAnalytics` directly when you need an isolated client, for example in tests, story fixtures, or advanced dependency injection. For ordinary business modules, prefer the global facade above.
 
 ## Validation
 

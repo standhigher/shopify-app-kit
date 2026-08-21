@@ -1,6 +1,6 @@
 {
   "name": "@standhigher/shopify-app-kit",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.",
   "license": "MIT",
   "author": "Standhigher",

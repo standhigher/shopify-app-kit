@@ -1,11 +1,21 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  analytics,
   createAnalytics,
+  getAnalytics,
+  initAnalytics,
+  resetAnalytics,
   shopifyAppEventsAdapter,
   type AnalyticsAdapter
 } from "@standhigher/shopify-app-kit/analytics";
 
 describe("analytics", () => {
+  afterEach(() => {
+    resetAnalytics();
+    vi.unstubAllEnvs();
+    vi.restoreAllMocks();
+  });
+
   it("calls adapters in order", async () => {
     const calls: string[] = [];
     const first: AnalyticsAdapter = {
@@ -100,5 +110,78 @@ describe("analytics", () => {
     }
 
     expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("no-ops before global analytics is initialized", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await expect(
+      analytics.track({
+        name: "app_loaded",
+        attributes: { surface: "settings" }
+      })
+    ).resolves.toBeUndefined();
+  });
+
+  it("warns once in development when global analytics is not initialized", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await analytics.track({ name: "app_loaded" });
+    await analytics.track({ name: "page_viewed" });
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      "Analytics has not been initialized. Call initAnalytics(...) before tracking events."
+    );
+  });
+
+  it("keeps the global analytics facade stable after initialization", async () => {
+    const trackSpy = vi.fn();
+
+    const client = initAnalytics({
+      adapters: [{ track: trackSpy }]
+    });
+
+    expect(getAnalytics()).toBe(client);
+
+    await analytics.track({
+      name: "settings_saved",
+      attributes: { surface: "shipping_rules" }
+    });
+
+    expect(trackSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "settings_saved",
+        attributes: { surface: "shipping_rules" }
+      })
+    );
+  });
+
+  it("replaces the global analytics client when initialized again", async () => {
+    const firstTrack = vi.fn();
+    const secondTrack = vi.fn();
+
+    initAnalytics({ adapters: [{ track: firstTrack }] });
+    initAnalytics({ adapters: [{ track: secondTrack }] });
+
+    await analytics.track({ name: "page_viewed" });
+
+    expect(firstTrack).not.toHaveBeenCalled();
+    expect(secondTrack).toHaveBeenCalledTimes(1);
+  });
+
+  it("resets the global analytics client and warning state", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const trackSpy = vi.fn();
+
+    initAnalytics({ adapters: [{ track: trackSpy }] });
+    resetAnalytics();
+
+    await analytics.track({ name: "app_loaded" });
+
+    expect(trackSpy).not.toHaveBeenCalled();
+    expect(warnSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,4 +1,10 @@
 export { createAnalytics, validateEvent } from "./analytics/createAnalytics";
+export {
+  analytics,
+  getAnalytics,
+  initAnalytics,
+  resetAnalytics
+} from "./analytics/globalAnalytics";
 export { noopAnalyticsAdapter } from "./analytics/adapters/noopAnalyticsAdapter";
 export { consoleAnalyticsAdapter } from "./analytics/adapters/consoleAnalyticsAdapter";
 export { shopifyAppEventsAdapter } from "./analytics/adapters/shopifyAppEventsAdapter";
