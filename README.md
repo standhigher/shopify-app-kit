@@ -20,6 +20,7 @@ The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify
 - [Usage docs](./packages/shopify-app-kit/docs/business-users.md)
 - [Development docs](./packages/shopify-app-kit/docs/development.md)
 - [Release docs](./packages/shopify-app-kit/docs/release.md)
+- [Roadmap to 1.0.0](./docs/roadmap.md)
 - [Changelog](./CHANGELOG.md)
 
 ## Install
@@ -48,3 +49,13 @@ npm run build-storybook
 ```
 
 See the package README for the full API overview: [`packages/shopify-app-kit/README.md`](./packages/shopify-app-kit/README.md).
+
+## Publish
+
+After completing the release checks, publish the package from the repository root:
+
+```bash
+npm run publish:pkg
+```
+
+This command publishes only `@standhigher/shopify-app-kit` to the public npmjs registry; the private workspace root is not published.

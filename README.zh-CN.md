@@ -21,6 +21,7 @@
 - [使用文档](./packages/shopify-app-kit/docs/business-users.md)
 - [开发文档](./packages/shopify-app-kit/docs/development.md)
 - [发布文档](./packages/shopify-app-kit/docs/release.md)
+- [演进规划](./docs/roadmap.md)
 - [更新日志](./CHANGELOG.md)
 
 ## 安装
@@ -49,3 +50,13 @@ npm run build-storybook
 ```
 
 完整 API 和能力说明见包 README：[`packages/shopify-app-kit/README.md`](./packages/shopify-app-kit/README.md)。
+
+## 发布
+
+完成发布前检查后，可以直接在仓库根目录发布 npm 包：
+
+```bash
+npm run publish:pkg
+```
+
+该命令只会将 `@standhigher/shopify-app-kit` 发布到 npmjs 公共 registry，不会发布标记为私有的 workspace 根包。

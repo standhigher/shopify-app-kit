@@ -12,6 +12,7 @@
     "typecheck": "npm --prefix packages/shopify-app-kit run typecheck",
     "build": "npm --prefix packages/shopify-app-kit run build",
     "build-storybook": "npm --prefix packages/shopify-app-kit run build-storybook",
-    "pack:dry-run": "cd packages/shopify-app-kit && npm pack --dry-run"
+    "pack:dry-run": "cd packages/shopify-app-kit && npm pack --dry-run",
+    "publish:pkg": "cd packages/shopify-app-kit && npm publish --access public --registry=https://registry.npmjs.org/"
   }
 }
