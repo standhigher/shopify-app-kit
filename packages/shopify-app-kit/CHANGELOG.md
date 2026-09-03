@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0-rc.0 - 2026-09-03
+
+- Added compatibility documentation, package-boundary verification, and Chromium Storybook smoke tests.
+- Added migration guidance from 0.4.x through the 0.8.x release candidate.
+- Prepared RC publishing through the npm `next` dist-tag.
+
 ## 0.7.0 - 2026-09-03
 
 - Added a real Storybook with interactive examples for Provider, Feedback, Save Flow, Navigation, Resource Picker, and Analytics.

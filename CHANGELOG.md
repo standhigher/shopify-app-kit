@@ -4,6 +4,18 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.8.0-rc.0] - 2026-09-03
+
+### Added
+
+- Added React/Node/TypeScript/Polaris compatibility documentation and package-boundary verification.
+- Added Chromium Storybook smoke tests for Polaris feedback, Save Bar fallback, Analytics, and Resource Picker fallback.
+- Added migration guidance from 0.4.x through the 0.8.x release candidate.
+
+### Release process
+
+- RC builds are intended for the npm `next` dist-tag and do not require Shopify credentials for local or CI smoke tests.
+
 ## [0.7.0] - 2026-09-03
 
 ### Added

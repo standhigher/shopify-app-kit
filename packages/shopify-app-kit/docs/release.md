@@ -20,7 +20,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 cd packages/shopify-app-kit
 npm pack --dry-run --registry=https://registry.npmjs.org/
 ```
@@ -102,7 +104,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 cd packages/shopify-app-kit
 npm pack --dry-run --registry=https://registry.npmjs.org/
 ```

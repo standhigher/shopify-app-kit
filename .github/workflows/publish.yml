@@ -34,6 +34,9 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
       - run: npm run build-storybook
+      - run: npm --prefix packages/shopify-app-kit run verify:package
+      - run: npx playwright install --with-deps chromium
+      - run: npm --prefix packages/shopify-app-kit run test:e2e
       - run: npm publish --access public --provenance
         working-directory: packages/shopify-app-kit
         env:
