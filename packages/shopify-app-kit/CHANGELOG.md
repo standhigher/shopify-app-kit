@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0 - 2026-09-03
+
+- Froze the documented root and public subpath API surface with ESM, CommonJS, and TypeScript declaration coverage.
+- Added API stability, compatibility, migration, and final release guidance.
+- Prepared the stable `latest` release path after 0.8 RC verification.
+
 ## 0.8.0-rc.0 - 2026-09-03
 
 - Added compatibility documentation, package-boundary verification, and Chromium Storybook smoke tests.

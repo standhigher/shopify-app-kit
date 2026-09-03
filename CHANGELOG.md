@@ -4,6 +4,17 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [1.0.0] - 2026-09-03
+
+### Added
+
+- Froze the documented root and public subpath API surface with ESM, CommonJS, and TypeScript declaration coverage.
+- Added API stability, compatibility, migration, and final release guidance.
+
+### Release
+
+- Prepared the stable `latest` release path after 0.8 RC verification.
+
 ## [0.8.0-rc.0] - 2026-09-03
 
 ### Added

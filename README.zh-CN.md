@@ -21,6 +21,8 @@
 - [使用文档](./packages/shopify-app-kit/docs/business-users.md)
 - [开发文档](./packages/shopify-app-kit/docs/development.md)
 - [发布文档](./packages/shopify-app-kit/docs/release.md)
+- [兼容矩阵](./packages/shopify-app-kit/docs/compatibility.md)
+- [API 稳定性](./packages/shopify-app-kit/docs/api-stability.md)
 - [演进规划](./docs/roadmap.md)
 - [更新日志](./CHANGELOG.md)
 
@@ -46,7 +48,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 ```
 
 完整 API 和能力说明见包 README：[`packages/shopify-app-kit/README.md`](./packages/shopify-app-kit/README.md)。

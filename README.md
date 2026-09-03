@@ -20,6 +20,8 @@ The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify
 - [Usage docs](./packages/shopify-app-kit/docs/business-users.md)
 - [Development docs](./packages/shopify-app-kit/docs/development.md)
 - [Release docs](./packages/shopify-app-kit/docs/release.md)
+- [Compatibility matrix](./packages/shopify-app-kit/docs/compatibility.md)
+- [API stability](./packages/shopify-app-kit/docs/api-stability.md)
 - [Roadmap to 1.0.0](./docs/roadmap.md)
 - [Changelog](./CHANGELOG.md)
 
@@ -45,7 +47,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 ```
 
 See the package README for the full API overview: [`packages/shopify-app-kit/README.md`](./packages/shopify-app-kit/README.md).

@@ -41,6 +41,8 @@ git push origin main
 git push origin v0.2.0
 ```
 
+稳定版 `1.0.0` 使用 `latest` dist-tag；RC 版本使用 `next` dist-tag。
+
 ### Web Auth 手动发布
 
 默认使用 npm web 认证：
@@ -124,6 +126,8 @@ git tag -a v0.2.0 -m "Release v0.2.0"
 git push origin main
 git push origin v0.2.0
 ```
+
+The stable `1.0.0` release uses the `latest` dist-tag; RC versions use `next`.
 
 ### Manual Web Auth publish
 
