@@ -183,7 +183,11 @@ HTTP client 会解包统一后端响应，默认 timeout 为 `15000ms`，仅对 
 
 ## Demo / Storybook
 
-Storybook 还未配置。当前 `npm run build-storybook` 会检查公开文档入口是否存在，为 CI 和发布流程提供稳定命令；后续可替换为真实 Storybook 构建。
+Storybook 已配置 Provider、Polaris Feedback、Save Flow、Navigation、Resource Picker 和 Analytics 的可交互 stories。使用 `npm run storybook` 本地查看，或使用 `npm run build-storybook` 构建静态站点。
+
+### Locale 与 renderer slot
+
+`ShopifyAppKitProvider` 内置 `en` 和 `zh-CN` 文案。区域 locale 按语言回退，未知语言回退到英文；`messages` 可覆盖单个文案。`renderers` 提供有限的 `banner`、`modal`、`toast` 和 `saveBar` 包装 slot，并传入 `DefaultComponent`，继续渲染它即可保留 Polaris 的交互和无障碍行为。`AppModal` 支持焦点、Escape/背景点击关闭、页面滚动锁定和多层 Modal 最上层关闭；`ToastProvider` 支持自动关闭、`maxToasts` 和可选去重。
 
 ## 包质量
 

@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { ShopifyAppKitContext } from "../providers/ShopifyAppKitContext";
 
 export interface LeaveGuardProps {
   dirty: boolean;
@@ -6,6 +7,7 @@ export interface LeaveGuardProps {
 }
 
 export function LeaveGuard({ dirty, message = "You have unsaved changes." }: LeaveGuardProps) {
+  const localizedMessage = useContext(ShopifyAppKitContext)?.messages.unsavedChanges ?? message;
   useEffect(() => {
     if (!dirty || typeof window === "undefined") {
       return;
@@ -13,13 +15,13 @@ export function LeaveGuard({ dirty, message = "You have unsaved changes." }: Lea
 
     const handler = (event: BeforeUnloadEvent) => {
       event.preventDefault();
-      event.returnValue = message;
-      return message;
+      event.returnValue = message === "You have unsaved changes." ? localizedMessage : message;
+      return event.returnValue;
     };
 
     window.addEventListener("beforeunload", handler);
     return () => window.removeEventListener("beforeunload", handler);
-  }, [dirty, message]);
+  }, [dirty, localizedMessage, message]);
 
   return null;
 }

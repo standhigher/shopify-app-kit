@@ -53,6 +53,49 @@ export interface ShopifyAppKitProviderProps {
   saveBar?: SaveBarAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment?: AppKitEnvironment;
+  renderers?: AppKitRenderers;
+}
+
+export interface AppKitRenderers {
+  banner?: React.ComponentType<BannerRendererProps>;
+  modal?: React.ComponentType<ModalRendererProps>;
+  toast?: React.ComponentType<ToastRendererProps>;
+  saveBar?: React.ComponentType<SaveBarRendererProps>;
+}
+
+export interface BannerRendererProps {
+  title: string;
+  tone?: "info" | "success" | "warning" | "critical";
+  children?: React.ReactNode;
+  DefaultComponent: React.ComponentType<Omit<BannerRendererProps, "DefaultComponent">>;
+}
+
+export interface ModalRendererProps {
+  open: boolean;
+  title: string;
+  children?: React.ReactNode;
+  footer?: React.ReactNode;
+  onClose: () => void;
+  DefaultComponent: React.ComponentType<Omit<ModalRendererProps, "DefaultComponent">>;
+}
+
+export interface ToastRendererProps {
+  content: string;
+  error?: boolean;
+  duration?: number;
+  onDismiss: () => void;
+  DefaultComponent: React.ComponentType<Omit<ToastRendererProps, "DefaultComponent">>;
+}
+
+export interface SaveBarRendererProps {
+  dirty: boolean;
+  saving?: boolean;
+  id?: string;
+  saveLabel?: string;
+  discardLabel?: string;
+  onSave: () => Promise<void> | void;
+  onDiscard: () => Promise<void> | void;
+  DefaultComponent: React.ComponentType<Omit<SaveBarRendererProps, "DefaultComponent">>;
 }
 
 export interface ShopifyAppKitContextValue {
@@ -65,4 +108,5 @@ export interface ShopifyAppKitContextValue {
   saveBar?: SaveBarAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment: AppKitEnvironment;
+  renderers?: AppKitRenderers;
 }

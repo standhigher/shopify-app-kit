@@ -4,6 +4,11 @@
 
 `AppSaveBar` uses Shopify App Bridge Save Bar when `window.shopify.saveBar` (or an explicit `saveBar` adapter) is available. Otherwise it renders Polaris `ContextualSaveBar` through the host `Frame`. The package never creates a Polaris `AppProvider` or `Frame` implicitly.
 
+When a `ShopifyAppKitProvider` is present, omitted save/discard labels use its
+locale dictionary. The provider's `renderers.saveBar` slot may wrap the default
+component through `DefaultComponent`; rendering that default preserves the
+Polaris save-bar interaction contract.
+
 The required composition is:
 
 ```tsx

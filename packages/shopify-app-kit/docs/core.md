@@ -10,6 +10,11 @@ If Polaris is not installed, npm reports the missing peer dependency and
 Polaris components provide the development-time configuration error; the
 package does not silently render a different UI.
 
+Locale fallback supports `en` and `zh-CN`: regional tags fall back by language,
+and unsupported languages use English. `messages` applies field-level overrides.
+`renderers` provides constrained wrapper slots; custom renderers receive
+`DefaultComponent` and must render it to preserve the default Polaris contract.
+
 ## Public Imports
 
 Use the flat public subpaths:

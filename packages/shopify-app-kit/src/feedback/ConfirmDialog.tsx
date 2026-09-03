@@ -1,6 +1,8 @@
 import { defaultMessages } from "../i18n/defaultMessages";
 import { AppModal } from "./AppModal";
 import { Button } from "@shopify/polaris";
+import { useContext } from "react";
+import { ShopifyAppKitContext } from "../providers/ShopifyAppKitContext";
 
 export interface ConfirmDialogProps {
   open: boolean;
@@ -21,14 +23,15 @@ export function ConfirmDialog({
   destructive = false,
   loading = false,
   confirmLabel,
-  cancelLabel = defaultMessages.cancel,
+  cancelLabel,
   onConfirm,
   onCancel
 }: ConfirmDialogProps) {
+  const messages = useContext(ShopifyAppKitContext)?.messages ?? defaultMessages;
   const actionLabel =
-    confirmLabel ?? (destructive ? defaultMessages.delete : defaultMessages.confirm);
+    confirmLabel ?? (destructive ? messages.delete : messages.confirm);
   const loadingLabel =
-    destructive ? defaultMessages.deleting : defaultMessages.saving;
+    destructive ? messages.deleting : messages.saving;
 
   return (
     <AppModal
@@ -38,7 +41,7 @@ export function ConfirmDialog({
       footer={
         <>
           <Button onClick={onCancel} disabled={loading}>
-            {cancelLabel}
+            {cancelLabel ?? messages.cancel}
           </Button>
           <Button
             variant="primary"

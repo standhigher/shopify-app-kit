@@ -9,8 +9,9 @@ export function BasicProviderExample({ children }: { children: React.ReactNode }
       <Frame>
         <ShopifyAppKitProvider
           appName="Fulfillment Desk"
+          locale="zh-CN"
           shop="demo.myshopify.com"
-          messages={{ save: "Apply changes" }}
+          messages={{ save: "应用更改" }}
         >
           <ToastProvider>{children}</ToastProvider>
         </ShopifyAppKitProvider>

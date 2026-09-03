@@ -3,16 +3,19 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
+  useEffect,
   type ReactNode
 } from "react";
 import { Toast } from "@shopify/polaris";
 import { ConfirmDialog, type ConfirmDialogProps } from "./ConfirmDialog";
+import { ShopifyAppKitContext } from "../providers/ShopifyAppKitContext";
 
 export type ToastTone = "success" | "error" | "info";
 
 interface ToastMessage {
-  id: number;
+  id: string;
   tone: ToastTone;
   message: string;
 }
@@ -25,6 +28,13 @@ export interface ConfirmOptions {
   cancelLabel?: string;
 }
 
+export interface ToastProviderProps {
+  children: ReactNode;
+  duration?: number;
+  maxToasts?: number;
+  dedupe?: boolean;
+}
+
 interface FeedbackContextValue {
   success: (message: string) => void;
   error: (message: string) => void;
@@ -34,17 +44,22 @@ interface FeedbackContextValue {
 
 const FeedbackContext = createContext<FeedbackContextValue | null>(null);
 
-export function ToastProvider({ children }: { children: ReactNode }) {
+export function ToastProvider({ children, duration = 5000, maxToasts = 3, dedupe = false }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [confirmState, setConfirmState] = useState<
     (ConfirmOptions & { resolve: (value: boolean) => void }) | null
   >(null);
+  const toastTimers = useRef(new Map<string, number>());
 
   const push = useCallback((tone: ToastTone, message: string) => {
-    setToasts((current) => [...current, { id: Date.now() + Math.random(), tone, message }]);
-  }, []);
+    setToasts((current) => {
+      if (dedupe && current.some((toast) => toast.tone === tone && toast.message === message)) return current;
+      const next = [...current, { id: `${Date.now()}-${Math.random()}`, tone, message }];
+      return next.slice(-Math.max(0, maxToasts));
+    });
+  }, [dedupe, maxToasts]);
 
-  const remove = useCallback((id: number) => {
+  const remove = useCallback((id: string) => {
     setToasts((current) => current.filter((toast) => toast.id !== id));
   }, []);
 
@@ -69,17 +84,48 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setConfirmState(null);
   };
 
+  useEffect(() => {
+    const activeIds = new Set(toasts.map((toast) => toast.id));
+    toasts.forEach((toast) => {
+      if (toastTimers.current.has(toast.id)) return;
+      const timer = window.setTimeout(() => {
+        toastTimers.current.delete(toast.id);
+        remove(toast.id);
+      }, duration);
+      toastTimers.current.set(toast.id, timer);
+    });
+    toastTimers.current.forEach((timer, id) => {
+      if (!activeIds.has(id)) {
+        window.clearTimeout(timer);
+        toastTimers.current.delete(id);
+      }
+    });
+  }, [duration, remove, toasts]);
+
+  useEffect(() => () => {
+    toastTimers.current.forEach((timer) => window.clearTimeout(timer));
+    toastTimers.current.clear();
+  }, []);
+
+  const CustomToast = useContext(ShopifyAppKitContext)?.renderers?.toast;
+  const DefaultToast = (props: { content: string; error?: boolean; duration?: number; onDismiss: () => void }) => (
+    <Toast content={props.content} error={props.error} duration={props.duration} onDismiss={props.onDismiss} />
+  );
+
   return (
     <FeedbackContext.Provider value={value}>
       {children}
       <div aria-live="polite">
         {toasts.map((toast) => (
-          <Toast
-            key={toast.id}
-            content={toast.message}
-            error={toast.tone === "error"}
-            onDismiss={() => remove(toast.id)}
-          />
+          CustomToast ? (
+            <div key={toast.id} role="status" aria-atomic="true">
+              <CustomToast content={toast.message} error={toast.tone === "error"} duration={duration} onDismiss={() => remove(toast.id)} DefaultComponent={DefaultToast} />
+            </div>
+          ) : (
+            <div key={toast.id} role="status" aria-atomic="true">
+              <Toast content={toast.message} error={toast.tone === "error"} duration={duration} onDismiss={() => remove(toast.id)} />
+            </div>
+          )
         ))}
       </div>
       <ConfirmDialog

@@ -5,4 +5,4 @@ export { ToastProvider, useConfirm, useToast } from "./feedback/useToast";
 export type { AppBannerProps, BannerTone } from "./feedback/AppBanner";
 export type { AppModalProps } from "./feedback/AppModal";
 export type { ConfirmDialogProps } from "./feedback/ConfirmDialog";
-export type { ConfirmOptions, ToastTone } from "./feedback/useToast";
+export type { ConfirmOptions, ToastProviderProps, ToastTone } from "./feedback/useToast";

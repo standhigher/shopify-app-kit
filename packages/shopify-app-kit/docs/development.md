@@ -62,6 +62,7 @@ npm run test
 npm run test:ci
 npm run typecheck
 npm run build
+npm run build-storybook
 npm run pack:dry-run
 ```
 
@@ -74,6 +75,8 @@ npm run pack:dry-run
 | `npm run test:ci` | CI 风格测试，串行执行并输出 verbose reporter |
 | `npm run typecheck` | TypeScript 类型检查 |
 | `npm run build` | tsup 输出 ESM、CJS 和类型声明 |
+| `npm run storybook` | 启动交互式组件 stories |
+| `npm run build-storybook` | 构建 Storybook 静态产物 |
 | `npm run pack:dry-run` | 检查 npm 包内容，不真正发布 |
 
 ### 本地调试

@@ -189,7 +189,11 @@ The HTTP client unwraps the shared backend envelope, defaults to a `15000ms` tim
 
 Examples live in [`examples`](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples).
 
-Storybook is not configured yet. `npm run build-storybook` currently validates that the public documentation surface exists, so CI and release checks have a stable command while the visual demo surface is being prepared.
+Storybook is configured with interactive stories for the Provider, Polaris feedback, save flow, navigation, resource picker, and analytics. Run `npm run storybook` for local interaction or `npm run build-storybook` for a static build.
+
+### Localization and renderer slots
+
+`ShopifyAppKitProvider` supports `en` and `zh-CN` message dictionaries. Regional tags fall back by language, unknown languages fall back to English, and `messages` overrides individual labels. The constrained `renderers` slots for `banner`, `modal`, `toast`, and `saveBar` receive `DefaultComponent`; render it to retain Polaris interaction and accessibility behavior. `AppModal` manages focus, Escape/backdrop close, scroll locking, and topmost-modal handling. `ToastProvider` supports automatic dismissal, `maxToasts`, and duplicate suppression.
 
 ## Package Quality
 
