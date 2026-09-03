@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react";
 import { AppProvider, Frame } from "@shopify/polaris";
+import "@shopify/polaris/build/esm/styles.css";
 
 const preview: Preview = {
   decorators: [
