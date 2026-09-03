@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "npm --prefix packages/shopify-app-kit run lint",
     "test": "npm --prefix packages/shopify-app-kit run test",
+    "test:coverage": "npm --prefix packages/shopify-app-kit run test:coverage",
     "test:ci": "npm --prefix packages/shopify-app-kit run test -- --reporter=verbose --sequence.concurrent=false --maxWorkers=1",
     "typecheck": "npm --prefix packages/shopify-app-kit run typecheck",
     "build": "npm --prefix packages/shopify-app-kit run build",

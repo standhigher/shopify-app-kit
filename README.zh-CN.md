@@ -26,7 +26,7 @@
 ## 安装
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
 ## 快速示例

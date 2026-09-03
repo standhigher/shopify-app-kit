@@ -29,6 +29,7 @@ describe("core http", () => {
 
   it("normalizes backend business errors from success HTTP responses", async () => {
     const client = createHttpClient({
+      retry: 0,
       fetch: vi.fn().mockResolvedValue(
         jsonResponse({
           code: "ORDER_NOT_FOUND",
@@ -66,6 +67,16 @@ describe("core http", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(2);
   });
 
+  it("does not retry arbitrary GET errors", async () => {
+    const fetchSpy = vi.fn().mockRejectedValue(new Error("application failure"));
+    const client = createHttpClient({ fetch: fetchSpy, retry: 2 });
+
+    await expect(client.get("/api/health")).rejects.toMatchObject({
+      code: "NETWORK_ERROR"
+    });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
   it("does not retry POST requests by default", async () => {
     const fetchSpy = vi.fn().mockRejectedValue(new TypeError("network down"));
     const client = createHttpClient({ fetch: fetchSpy, retry: 2 });
@@ -90,6 +101,82 @@ describe("core http", () => {
     await expect(client.get("/api/slow")).rejects.toMatchObject({
       code: "TIMEOUT",
       message: "Request timed out"
+    });
+  });
+
+  it("distinguishes caller cancellation from a timeout", async () => {
+    const controller = new AbortController();
+    const fetchSpy = vi.fn(
+      (_url: string | URL | Request, init?: RequestInit) =>
+        new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener("abort", () => {
+            reject(new DOMException("The operation was aborted.", "AbortError"));
+          });
+        })
+    );
+    const client = createHttpClient({ fetch: fetchSpy, timeout: 1000, retry: 1 });
+
+    const request = client.get("/api/cancelled", { signal: controller.signal });
+    await Promise.resolve();
+    controller.abort();
+
+    await expect(request).rejects.toMatchObject({
+      code: "ABORTED",
+      message: "Request was aborted"
+    });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns empty and text success responses without envelope unwrapping", async () => {
+    const fetchSpy = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(null, { status: 204 }))
+      .mockResolvedValueOnce(new Response("plain text", { status: 200 }));
+    const client = createHttpClient({ fetch: fetchSpy });
+
+    await expect(client.get("/api/empty")).resolves.toBeUndefined();
+    await expect(client.get("/api/text")).resolves.toBe("plain text");
+  });
+
+  it("normalizes non-2xx responses with malformed bodies as HTTP errors", async () => {
+    const client = createHttpClient({
+      retry: 0,
+      fetch: vi.fn().mockResolvedValue(
+        new Response("<html>bad gateway</html>", {
+          status: 502,
+          statusText: "Bad Gateway",
+          headers: { "content-type": "application/json" }
+        })
+      )
+    });
+
+    await expect(client.get("/api/orders")).rejects.toMatchObject({
+      code: "HTTP_ERROR",
+      status: 502,
+      message: "Bad Gateway",
+      details: "<html>bad gateway</html>"
+    });
+  });
+
+  it("preserves HTTP status when a backend error envelope is returned", async () => {
+    const client = createHttpClient({
+      fetch: vi.fn().mockResolvedValue(
+        jsonResponse(
+          {
+            code: "FORBIDDEN",
+            message: "Forbidden",
+            data: null,
+            traceId: "trace-forbidden"
+          },
+          { status: 403, statusText: "Forbidden" }
+        )
+      )
+    });
+
+    await expect(client.get("/api/private")).rejects.toMatchObject({
+      code: "FORBIDDEN",
+      status: 403,
+      requestId: "trace-forbidden"
     });
   });
 

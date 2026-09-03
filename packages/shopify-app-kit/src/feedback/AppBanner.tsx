@@ -1,3 +1,5 @@
+import { Banner } from "@shopify/polaris";
+
 export type BannerTone = "info" | "success" | "warning" | "critical";
 
 export interface AppBannerProps {
@@ -7,12 +9,5 @@ export interface AppBannerProps {
 }
 
 export function AppBanner({ tone = "info", title, children }: AppBannerProps) {
-  const role = tone === "critical" || tone === "warning" ? "alert" : "status";
-
-  return (
-    <section role={role} data-tone={tone} aria-label={title}>
-      <strong>{title}</strong>
-      {children ? <div>{children}</div> : null}
-    </section>
-  );
+  return <Banner tone={tone} title={title}>{children}</Banner>;
 }

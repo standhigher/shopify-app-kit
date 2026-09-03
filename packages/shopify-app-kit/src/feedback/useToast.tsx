@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode
 } from "react";
+import { Toast } from "@shopify/polaris";
 import { ConfirmDialog, type ConfirmDialogProps } from "./ConfirmDialog";
 
 export type ToastTone = "success" | "error" | "info";
@@ -73,16 +74,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
       <div aria-live="polite">
         {toasts.map((toast) => (
-          <div key={toast.id} role="status" data-tone={toast.tone}>
-            {toast.message}
-            <button
-              type="button"
-              onClick={() => remove(toast.id)}
-              aria-label="Close notification"
-            >
-              Close
-            </button>
-          </div>
+          <Toast
+            key={toast.id}
+            content={toast.message}
+            error={toast.tone === "error"}
+            onDismiss={() => remove(toast.id)}
+          />
         ))}
       </div>
       <ConfirmDialog

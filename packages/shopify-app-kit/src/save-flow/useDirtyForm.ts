@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type DirtyFormStatus = "idle" | "dirty" | "saving" | "saved" | "error";
 
@@ -24,23 +24,49 @@ export function useDirtyForm<TValue>({
   const [cleanSnapshot, setCleanSnapshot] = useState(initialValue);
   const [status, setStatus] = useState<DirtyFormStatus>("idle");
   const [error, setError] = useState<unknown>();
+  const initialValueRef = useRef(initialValue);
+  const savePromiseRef = useRef<Promise<void> | null>(null);
+
+  useEffect(() => {
+    if (compare(initialValueRef.current, initialValue)) {
+      return;
+    }
+
+    initialValueRef.current = initialValue;
+    setCleanSnapshot(initialValue);
+    setError(undefined);
+    setStatus("idle");
+  }, [compare, initialValue]);
+
   const dirty = useMemo(
     () => !compare(cleanSnapshot, value),
     [cleanSnapshot, compare, value]
   );
 
-  const save = useCallback(async () => {
-    setStatus("saving");
-    setError(undefined);
-    try {
-      await onSave?.(value);
-      setCleanSnapshot(value);
-      setStatus("saved");
-    } catch (saveError) {
-      setError(saveError);
-      setStatus("error");
-      throw saveError;
+  const save = useCallback(() => {
+    if (savePromiseRef.current) {
+      return savePromiseRef.current;
     }
+
+    const savedValue = value;
+    const savePromise = (async () => {
+      setStatus("saving");
+      setError(undefined);
+      try {
+        await onSave?.(savedValue);
+        setCleanSnapshot(savedValue);
+        setStatus("saved");
+      } catch (saveError) {
+        setError(saveError);
+        setStatus("error");
+        throw saveError;
+      }
+    })();
+
+    savePromiseRef.current = savePromise.finally(() => {
+      savePromiseRef.current = null;
+    });
+    return savePromiseRef.current;
   }, [onSave, value]);
 
   const discard = useCallback(() => {
@@ -51,7 +77,7 @@ export function useDirtyForm<TValue>({
 
   return {
     dirty,
-    status: dirty && status === "idle" ? "dirty" : status,
+    status: dirty && (status === "idle" || status === "saved") ? "dirty" : status,
     error,
     save,
     discard

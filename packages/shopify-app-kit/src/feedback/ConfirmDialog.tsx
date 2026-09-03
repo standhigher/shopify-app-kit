@@ -1,5 +1,6 @@
 import { defaultMessages } from "../i18n/defaultMessages";
 import { AppModal } from "./AppModal";
+import { Button } from "@shopify/polaris";
 
 export interface ConfirmDialogProps {
   open: boolean;
@@ -36,17 +37,18 @@ export function ConfirmDialog({
       onClose={onCancel}
       footer={
         <>
-          <button type="button" onClick={onCancel} disabled={loading}>
+          <Button onClick={onCancel} disabled={loading}>
             {cancelLabel}
-          </button>
-          <button
-            type="button"
-            data-destructive={destructive ? "" : undefined}
+          </Button>
+          <Button
+            variant="primary"
+            tone={destructive ? "critical" : undefined}
             onClick={onConfirm}
             disabled={loading}
+            loading={loading}
           >
             {loading ? loadingLabel : actionLabel}
-          </button>
+          </Button>
         </>
       }
     >

@@ -25,10 +25,11 @@
 ## 安装
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
-`react` 和 `react-dom` 是 peer dependencies，需要由业务项目提供。
+`react`、`react-dom` 和 `@shopify/polaris` 是 peer dependencies，需要由业务项目提供。
+Polaris CSS 也由宿主负责引入，例如 `import "@shopify/polaris/build/esm/styles.css";`。
 
 ## 基础用法
 
@@ -45,6 +46,30 @@ export function App() {
   );
 }
 ```
+
+### Polaris Provider 组合
+
+Shopify App Kit 不会替宿主创建 Polaris 上下文。使用反馈或保存条时，推荐按以下顺序组合：
+
+```tsx
+import { AppProvider, Frame } from "@shopify/polaris";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { ToastProvider } from "@standhigher/shopify-app-kit/feedback";
+
+export function App() {
+  return (
+    <AppProvider i18n={{}}>
+      <Frame>
+        <ShopifyAppKitProvider appName="Fulfillment Desk">
+          <ToastProvider><Routes /></ToastProvider>
+        </ShopifyAppKitProvider>
+      </Frame>
+    </AppProvider>
+  );
+}
+```
+
+`AppBanner`、`AppModal`、`ConfirmDialog` 和 `AppSaveBar` 默认使用 Polaris；`AppSaveBar` 使用 `ContextualSaveBar`，必须放在宿主 `Frame` 下。`ToastProvider` 只管理 Toast/Confirm 状态，不替宿主创建 `AppProvider` 或 `Frame`。
 
 按模块从 subpath exports 引入：
 

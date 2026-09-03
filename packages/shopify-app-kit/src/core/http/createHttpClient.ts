@@ -81,20 +81,29 @@ function isRetryableStatus(response: Response) {
 }
 
 function isTimeoutError(error: unknown) {
-  return error instanceof DOMException && error.name === "AbortError";
+  return (
+    typeof DOMException !== "undefined" &&
+    error instanceof DOMException &&
+    error.name === "AbortError"
+  );
 }
 
 function shouldRetryError(method: HttpMethod, error: unknown) {
-  return isRetryableMethod(method) && (isTimeoutError(error) || error instanceof Error);
+  return isRetryableMethod(method) && (isTimeoutError(error) || error instanceof TypeError);
 }
 
 async function parseResponseBody(response: Response) {
   const contentType = response.headers.get("content-type") ?? "";
+  const text = await response.text();
+
   if (contentType.includes("application/json")) {
-    return response.json() as Promise<unknown>;
+    try {
+      return text ? JSON.parse(text) as unknown : undefined;
+    } catch {
+      return text;
+    }
   }
 
-  const text = await response.text();
   return text ? text : undefined;
 }
 
@@ -147,6 +156,15 @@ export function createHttpClient(options: HttpClientOptions = {}): HttpClient {
 
     while (true) {
       const controller = new AbortController();
+      let callerAborted = requestOptions.signal?.aborted ?? false;
+      const handleCallerAbort = () => {
+        callerAborted = true;
+        controller.abort();
+      };
+      requestOptions.signal?.addEventListener("abort", handleCallerAbort, { once: true });
+      if (callerAborted) {
+        controller.abort();
+      }
       const timeoutId = setTimeout(() => controller.abort(), timeout);
       const headers = mergeHeaders(options.headers, requestOptions.headers, {
         "x-request-id": requestId
@@ -169,19 +187,20 @@ export function createHttpClient(options: HttpClientOptions = {}): HttpClient {
             continue;
           }
 
-          throw normalizeError(
-            isBackendEnvelope(body)
-              ? body
-              : {
-                  code: "HTTP_ERROR",
-                  message: response.statusText || "HTTP request failed",
-                  details: body
-                },
-            {
+          if (isBackendEnvelope(body)) {
+            throw normalizeError(body, {
               status: response.status,
-              requestId: isBackendEnvelope(body) ? body.traceId : requestId
-            }
-          );
+              requestId: body.traceId
+            });
+          }
+
+          throw new ApiError({
+            code: "HTTP_ERROR",
+            message: response.statusText || "HTTP request failed",
+            status: response.status,
+            requestId,
+            details: body
+          });
         }
 
         if (isSuccessEnvelope(body)) {
@@ -198,11 +217,15 @@ export function createHttpClient(options: HttpClientOptions = {}): HttpClient {
           throw error;
         }
 
-        const normalized = normalizeError(error, {
-          requestId
-        });
+        const normalized = callerAborted
+          ? new ApiError({
+              code: "ABORTED",
+              message: "Request was aborted",
+              requestId
+            })
+          : normalizeError(error, { requestId });
 
-        if (attempt < retry && shouldRetryError(method, error)) {
+        if (!callerAborted && attempt < retry && shouldRetryError(method, error)) {
           attempt += 1;
           await wait(options.retryDelay?.({ attempt, error, method }) ?? 0);
           continue;
@@ -210,6 +233,7 @@ export function createHttpClient(options: HttpClientOptions = {}): HttpClient {
 
         throw normalized;
       } finally {
+        requestOptions.signal?.removeEventListener("abort", handleCallerAbort);
         clearTimeout(timeoutId);
       }
     }

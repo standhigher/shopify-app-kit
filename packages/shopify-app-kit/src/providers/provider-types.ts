@@ -1,6 +1,7 @@
 import type React from "react";
 import type { AppKitMessageOverrides, AppKitMessages } from "../i18n/messages-types";
 import type { AppKitEnvironment } from "../runtime/environment";
+import type { AnalyticsClient } from "../analytics/analytics-types";
 
 export interface NavigationAdapter {
   navigate?: (path: string) => void | Promise<void>;
@@ -42,7 +43,7 @@ export interface ShopifyAppKitProviderProps {
   locale?: string;
   shop?: string;
   messages?: AppKitMessageOverrides;
-  analytics?: unknown;
+  analytics?: AnalyticsClient;
   navigation?: NavigationAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment?: AppKitEnvironment;
@@ -53,7 +54,7 @@ export interface ShopifyAppKitContextValue {
   locale: string;
   shop?: string;
   messages: AppKitMessages;
-  analytics?: unknown;
+  analytics?: AnalyticsClient;
   navigation?: NavigationAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment: AppKitEnvironment;

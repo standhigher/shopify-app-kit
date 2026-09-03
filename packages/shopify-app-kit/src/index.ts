@@ -1,5 +1,6 @@
 export {
   ShopifyAppKitProvider,
+  useAnalytics,
   useShopifyAppKit,
   detectEnvironment
 } from "./core";

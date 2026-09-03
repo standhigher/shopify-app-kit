@@ -6,8 +6,9 @@ Security fixes target the latest published minor version unless otherwise stated
 
 | Version | Supported |
 |---|---|
-| `0.2.x` | Yes |
-| `<0.2.0` | Best effort |
+| `0.5.x` | Yes |
+| `0.4.x` | Best effort |
+| `<0.4.0` | Unsupported |
 
 ## Reporting A Vulnerability
 

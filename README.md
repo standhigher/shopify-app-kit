@@ -25,7 +25,7 @@ The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify
 ## Install
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
 ## Quick Example

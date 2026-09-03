@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import {
   ShopifyAppKitProvider,
+  useAnalytics,
   useShopifyAppKit
 } from "@standhigher/shopify-app-kit/core";
 
@@ -23,6 +24,21 @@ function ContextProbe() {
 }
 
 describe("core provider", () => {
+  it("provides a typed analytics client through the provider hook", () => {
+    const track = () => Promise.resolve();
+    function AnalyticsProbe() {
+      return <span>{useAnalytics().track === track ? "custom" : "other"}</span>;
+    }
+
+    render(
+      <ShopifyAppKitProvider appName="Demo" analytics={{ track }}>
+        <AnalyticsProbe />
+      </ShopifyAppKitProvider>
+    );
+
+    expect(screen.getByText("custom")).toBeInTheDocument();
+  });
+
   it("provides defaults and caller overrides", () => {
     render(
       <ShopifyAppKitProvider

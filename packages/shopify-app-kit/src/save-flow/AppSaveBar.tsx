@@ -1,4 +1,5 @@
 import { defaultMessages } from "../i18n/defaultMessages";
+import { ContextualSaveBar } from "@shopify/polaris";
 
 export interface AppSaveBarProps {
   dirty: boolean;
@@ -22,13 +23,11 @@ export function AppSaveBar({
   }
 
   return (
-    <div role="region" aria-label="Unsaved changes" data-app-kit-save-bar="">
-      <button type="button" onClick={onDiscard} disabled={saving}>
-        {discardLabel}
-      </button>
-      <button type="button" onClick={onSave} disabled={saving}>
-        {saving ? defaultMessages.saving : saveLabel}
-      </button>
+    <div data-app-kit-save-bar="">
+      <ContextualSaveBar
+        saveAction={{ content: saveLabel, loading: saving, disabled: saving, onAction: onSave }}
+        discardAction={{ content: discardLabel, disabled: saving, onAction: onDiscard }}
+      />
     </div>
   );
 }

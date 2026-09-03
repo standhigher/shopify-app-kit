@@ -33,4 +33,22 @@ describe("core error", () => {
       message: "Failed to fetch"
     });
   });
+
+  it("preserves an existing ApiError when normalizing it again", () => {
+    const original = new ApiError({
+      code: "FORBIDDEN",
+      message: "Forbidden",
+      status: 403,
+      requestId: "trace-1",
+      details: { reason: "role" }
+    });
+
+    expect(normalizeError(original)).toMatchObject({
+      code: "FORBIDDEN",
+      message: "Forbidden",
+      status: 403,
+      requestId: "trace-1",
+      details: { reason: "role" }
+    });
+  });
 });

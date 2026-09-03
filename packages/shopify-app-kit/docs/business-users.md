@@ -11,26 +11,34 @@
 ### 安装
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
-`react` 和 `react-dom` 是 peer dependencies，业务项目需要自己提供。
+`react`、`react-dom` 和 `@shopify/polaris` 是 peer dependencies，业务项目需要自己提供；Polaris CSS 也由宿主负责引入。
 
 ### 推荐接入方式
 
-在应用根部包一层 `ShopifyAppKitProvider`：
+在应用根部由宿主提供 Polaris `AppProvider`/`Frame`，再组合 `ShopifyAppKitProvider` 和可选的 `ToastProvider`：
 
 ```tsx
+import { AppProvider, Frame } from "@shopify/polaris";
 import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { ToastProvider } from "@standhigher/shopify-app-kit/feedback";
 
 export function App() {
   return (
-    <ShopifyAppKitProvider appName="Fulfillment Desk" shop="demo.myshopify.com">
-      <Routes />
-    </ShopifyAppKitProvider>
+    <AppProvider i18n={{}}>
+      <Frame>
+        <ShopifyAppKitProvider appName="Fulfillment Desk" shop="demo.myshopify.com">
+          <ToastProvider><Routes /></ToastProvider>
+        </ShopifyAppKitProvider>
+      </Frame>
+    </AppProvider>
   );
 }
 ```
+
+`AppBanner`、`AppModal`、`ConfirmDialog` 和 `AppSaveBar` 默认渲染 Polaris 组件。`AppSaveBar` 依赖 `Frame` 的 contextual save bar；Kit 不会隐式创建 Polaris Provider。
 
 按能力从 subpath 引入，不建议从根入口导入所有能力：
 
@@ -150,10 +158,10 @@ The package provides reusable frontend building blocks for Shopify embedded apps
 ### Installation
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
-`react` and `react-dom` are peer dependencies and must be provided by the host app.
+`react`, `react-dom`, and `@shopify/polaris` are peer dependencies and must be provided by the host app. The host also imports Polaris CSS.
 
 ### Recommended Setup
 

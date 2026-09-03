@@ -1,6 +1,6 @@
 {
   "name": "@standhigher/shopify-app-kit",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.",
   "license": "MIT",
   "author": "Standhigher",
@@ -105,12 +105,14 @@
   "scripts": {
     "lint": "eslint src --ext .ts,.tsx",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
     "build-storybook": "node ./scripts/build-storybook-placeholder.mjs",
     "pack:dry-run": "npm pack --dry-run"
   },
   "peerDependencies": {
+    "@shopify/polaris": "^13.9.5",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
@@ -127,6 +129,7 @@
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^3.2.7",
     "eslint": "^9.20.1",
     "eslint-plugin-react-hooks": "^5.1.0",
     "happy-dom": "^20.11.2",

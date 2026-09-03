@@ -2,7 +2,21 @@
 
 `useDirtyForm` manages a clean snapshot, dirty state, save/discard actions, and save errors. It accepts `initialValue`, `value`, optional `onSave`, optional `onDiscard`, and optional `compare`.
 
-`AppSaveBar` renders a non-embedded fallback action bar. Business apps may replace it with a Shopify App Bridge adapter later, but Phase 1 never assumes App Bridge is available at import time.
+`AppSaveBar` renders Polaris `ContextualSaveBar` through the host `Frame`. Business apps may replace it with a Shopify App Bridge adapter later, but this package never creates a Polaris `AppProvider` or `Frame` implicitly.
+
+The required composition is:
+
+```tsx
+<AppProvider i18n={{}}>
+  <Frame>
+    <ShopifyAppKitProvider appName="Settings">
+      <AppSaveBar dirty={form.dirty} onSave={form.save} onDiscard={form.discard} />
+    </ShopifyAppKitProvider>
+  </Frame>
+</AppProvider>
+```
+
+Import `@shopify/polaris/build/esm/styles.css` once in the host application.
 
 `LeaveGuard` registers a `beforeunload` guard while `dirty` is true.
 
@@ -12,3 +26,5 @@ Save behavior:
 - Successful save updates the clean snapshot.
 - Failed save keeps the dirty state and exposes `status="error"`.
 - Discard calls the caller's `onDiscard`; callers should reset form state to the clean value.
+- When `initialValue` changes to a new record or server snapshot, the clean snapshot and status reset to `idle`.
+- If a saved value is edited again, status returns to `dirty`.

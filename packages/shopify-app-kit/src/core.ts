@@ -1,5 +1,5 @@
 export { ShopifyAppKitProvider } from "./providers/ShopifyAppKitProvider";
-export { ShopifyAppKitContext, useShopifyAppKit } from "./providers/ShopifyAppKitContext";
+export { ShopifyAppKitContext, useAnalytics, useShopifyAppKit } from "./providers/ShopifyAppKitContext";
 export type {
   NavigationAdapter,
   OpenExternalOptions,
@@ -10,6 +10,7 @@ export type {
   ShopifyAppKitContextValue,
   ShopifyAppKitProviderProps
 } from "./providers/provider-types";
+export type { AnalyticsClient } from "./analytics/analytics-types";
 export { defaultMessages } from "./i18n/defaultMessages";
 export type { AppKitMessages, AppKitMessageOverrides } from "./i18n/messages-types";
 export { detectEnvironment } from "./runtime/environment";

@@ -4,6 +4,19 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.5.0] - 2026-09-03
+
+### Added
+
+- Added `@shopify/polaris` 13.x as a peer dependency and documented host `AppProvider`/`Frame` composition.
+- Migrated default feedback and save-bar rendering to Polaris components.
+- Added public API runtime/type coverage and coverage reporting.
+
+### Fixed
+
+- Corrected `useDirtyForm` snapshot synchronization and dirty status after a successful save is edited again.
+- Completed HTTP/Error handling for malformed non-2xx responses, status propagation, request/trace ids, and existing `ApiError` normalization.
+
 ## [0.4.0] - 2026-08-21
 
 ### Added

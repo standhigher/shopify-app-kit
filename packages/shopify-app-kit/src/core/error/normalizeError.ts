@@ -21,7 +21,14 @@ export function isSuccessEnvelope(value: unknown): value is BackendEnvelope {
 
 export function normalizeError(error: unknown, overrides: Partial<ApiErrorPayload> = {}): ApiError {
   if (isApiError(error)) {
-    return new ApiError({ ...error, ...overrides });
+    return new ApiError({
+      code: error.code,
+      message: error.message,
+      status: error.status,
+      requestId: error.requestId,
+      details: error.details,
+      ...overrides
+    });
   }
 
   if (isBackendEnvelope(error)) {
@@ -34,7 +41,11 @@ export function normalizeError(error: unknown, overrides: Partial<ApiErrorPayloa
     });
   }
 
-  if (error instanceof DOMException && error.name === "AbortError") {
+  if (
+    typeof DOMException !== "undefined" &&
+    error instanceof DOMException &&
+    error.name === "AbortError"
+  ) {
     return new ApiError({
       code: "TIMEOUT",
       message: "Request timed out",

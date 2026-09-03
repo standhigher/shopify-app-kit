@@ -24,10 +24,11 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 ## Installation
 
 ```bash
-npm install @standhigher/shopify-app-kit react react-dom
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
 ```
 
-`react` and `react-dom` are peer dependencies. The host app provides them.
+`react`, `react-dom`, and `@shopify/polaris` are peer dependencies. The host app provides them.
+The host also owns Polaris CSS, for example `import "@shopify/polaris/build/esm/styles.css";`.
 
 ## Basic Usage
 
@@ -44,6 +45,37 @@ export function App() {
   );
 }
 ```
+
+### Polaris provider composition
+
+Shopify App Kit does not create a Polaris context for the host. Put the host's
+Polaris `AppProvider` and `Frame` above Kit components, and put
+`ToastProvider` inside `Frame` when using `useToast` or `useConfirm`:
+
+```tsx
+import { AppProvider, Frame } from "@shopify/polaris";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { ToastProvider } from "@standhigher/shopify-app-kit/feedback";
+
+export function App() {
+  return (
+    <AppProvider i18n={{}}>
+      <Frame>
+        <ShopifyAppKitProvider appName="Fulfillment Desk">
+          <ToastProvider>
+            <Routes />
+          </ToastProvider>
+        </ShopifyAppKitProvider>
+      </Frame>
+    </AppProvider>
+  );
+}
+```
+
+`AppBanner`, `AppModal`, `ConfirmDialog`, and `AppSaveBar` render Polaris
+components by default. `AppSaveBar` uses Polaris `ContextualSaveBar`, so it
+also belongs below the host `Frame`. The package does not add `AppProvider` or
+`Frame` implicitly.
 
 Import only the domain you need through subpath exports:
 
