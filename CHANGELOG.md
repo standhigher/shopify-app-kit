@@ -4,6 +4,29 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [0.7.0] - 2026-09-03
+
+### Added
+
+- Added a real Storybook with interactive examples for Provider, Feedback, Save Flow, Navigation, Resource Picker, and Analytics.
+- Added localized provider messages for `en` and `zh-CN`, locale fallback, and constrained renderer slots for business customization.
+
+### Improved
+
+- Improved modal focus restoration, scroll locking, layered Escape handling, and toast queue controls.
+- Loaded Shopify Polaris styles in the Storybook preview so examples render with the expected Polaris visual system.
+
+## [0.6.0] - 2026-09-03
+
+### Added
+
+- Added optional Shopify App Bridge adapters for Save Bar, Navigation, Product Picker, and Collection Picker.
+- Added SSR-safe runtime detection and safe host-missing fallbacks for local development and non-Shopify environments.
+
+### Documentation
+
+- Documented adapter installation, compatibility, and degradation behavior.
+
 ## [0.5.0] - 2026-09-03
 
 ### Added
