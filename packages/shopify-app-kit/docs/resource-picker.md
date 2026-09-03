@@ -1,6 +1,6 @@
 # Resource Picker
 
-`useProductPicker` and `useCollectionPicker` expose adapter-driven resource picking.
+`useProductPicker` and `useCollectionPicker` expose adapter-driven resource picking. In an Embedded App they automatically use the App Bridge `window.shopify.resourcePicker` runtime when no explicit adapter is supplied.
 
 ```tsx
 const picker = useProductPicker();

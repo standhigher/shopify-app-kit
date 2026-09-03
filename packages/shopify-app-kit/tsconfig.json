@@ -14,7 +14,8 @@
       "@standhigher/shopify-app-kit/save-flow": ["src/save-flow.ts"],
       "@standhigher/shopify-app-kit/navigation": ["src/navigation.ts"],
       "@standhigher/shopify-app-kit/resource-picker": ["src/resource-picker.ts"],
-      "@standhigher/shopify-app-kit/analytics": ["src/analytics.ts"]
+      "@standhigher/shopify-app-kit/analytics": ["src/analytics.ts"],
+      "@standhigher/shopify-app-kit/shopify-adapters": ["src/shopify-adapters.ts"]
     },
     "jsx": "react-jsx",
     "strict": true,
