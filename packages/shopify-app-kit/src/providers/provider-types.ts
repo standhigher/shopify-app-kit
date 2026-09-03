@@ -9,6 +9,11 @@ export interface NavigationAdapter {
   openExternal?: (url: string, options?: OpenExternalOptions) => void | Promise<void>;
 }
 
+export interface SaveBarAdapter {
+  show: (id: string) => void | Promise<void>;
+  hide: (id: string) => void | Promise<void>;
+}
+
 export interface OpenExternalOptions {
   newWindow?: boolean;
   confirm?: () => boolean | Promise<boolean>;
@@ -45,6 +50,7 @@ export interface ShopifyAppKitProviderProps {
   messages?: AppKitMessageOverrides;
   analytics?: AnalyticsClient;
   navigation?: NavigationAdapter;
+  saveBar?: SaveBarAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment?: AppKitEnvironment;
 }
@@ -56,6 +62,7 @@ export interface ShopifyAppKitContextValue {
   messages: AppKitMessages;
   analytics?: AnalyticsClient;
   navigation?: NavigationAdapter;
+  saveBar?: SaveBarAdapter;
   resourcePicker?: ResourcePickerAdapter;
   environment: AppKitEnvironment;
 }

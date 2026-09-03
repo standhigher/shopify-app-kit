@@ -7,6 +7,7 @@ export type {
   PickerOptions,
   PickerResult,
   ResourcePickerAdapter,
+  SaveBarAdapter,
   ShopifyAppKitContextValue,
   ShopifyAppKitProviderProps
 } from "./providers/provider-types";

@@ -8,6 +8,7 @@ import * as saveFlow from "@standhigher/shopify-app-kit/save-flow";
 import * as navigation from "@standhigher/shopify-app-kit/navigation";
 import * as picker from "@standhigher/shopify-app-kit/resource-picker";
 import * as analytics from "@standhigher/shopify-app-kit/analytics";
+import * as shopifyAdapters from "@standhigher/shopify-app-kit/shopify-adapters";
 import type { AnalyticsClient } from "@standhigher/shopify-app-kit/analytics";
 import type {
   ShopifyAppKitProviderProps,
@@ -51,5 +52,8 @@ describe("public API", () => {
     expect(navigation.useAppNavigation).toEqual(expect.any(Function));
     expect(picker.useProductPicker).toEqual(expect.any(Function));
     expect(analytics.initAnalytics).toEqual(expect.any(Function));
+    expect(shopifyAdapters.createShopifyNavigationAdapter).toEqual(expect.any(Function));
+    expect(shopifyAdapters.createShopifyResourcePickerAdapter).toEqual(expect.any(Function));
+    expect(shopifyAdapters.createShopifySaveBarAdapter).toEqual(expect.any(Function));
   });
 });

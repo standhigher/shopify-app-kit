@@ -2,7 +2,7 @@
 
 `useDirtyForm` manages a clean snapshot, dirty state, save/discard actions, and save errors. It accepts `initialValue`, `value`, optional `onSave`, optional `onDiscard`, and optional `compare`.
 
-`AppSaveBar` renders Polaris `ContextualSaveBar` through the host `Frame`. Business apps may replace it with a Shopify App Bridge adapter later, but this package never creates a Polaris `AppProvider` or `Frame` implicitly.
+`AppSaveBar` uses Shopify App Bridge Save Bar when `window.shopify.saveBar` (or an explicit `saveBar` adapter) is available. Otherwise it renders Polaris `ContextualSaveBar` through the host `Frame`. The package never creates a Polaris `AppProvider` or `Frame` implicitly.
 
 The required composition is:
 

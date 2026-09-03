@@ -72,3 +72,8 @@ This project follows semantic versioning before `1.0.0` with the usual pre-1.0 c
 - Initial Phase 1 MVP for `@standhigher/shopify-app-kit`.
 - Added subpath exports for `core`, `feedback`, `save-flow`, `navigation`, `resource-picker`, and `analytics`.
 - Added package build, tests, docs, examples, and CI.
+## 0.6.0
+
+- add optional Shopify App Bridge Save Bar, Navigation, Product, and Collection adapters
+- add SSR-safe runtime detection and safe host-missing fallbacks
+- document adapter installation, compatibility, and degradation behavior

@@ -38,6 +38,10 @@ export default defineConfig({
         find: "@standhigher/shopify-app-kit/analytics",
         replacement: resolve(__dirname, "src/analytics.ts")
       },
+      {
+        find: "@standhigher/shopify-app-kit/shopify-adapters",
+        replacement: resolve(__dirname, "src/shopify-adapters.ts")
+      },
       { find: "@standhigher/shopify-app-kit", replacement: resolve(__dirname, "src/index.ts") }
     ]
   },

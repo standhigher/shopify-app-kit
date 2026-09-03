@@ -58,4 +58,30 @@ describe("resource picker", () => {
 
     await expect(result.current.open()).rejects.toThrow("picker failed");
   });
+
+  it("maps App Bridge product picker selections", async () => {
+    const resourcePicker = vi.fn().mockResolvedValue([
+      { id: "gid://shopify/Product/2", title: "Shoe", handle: "shoe", image: { url: "https://cdn/x" } }
+    ]);
+    (window as Window & { shopify?: unknown }).shopify = { resourcePicker };
+    const { result } = renderHook(() => useProductPicker(), {
+      wrapper: ({ children }: PropsWithChildren) => <ShopifyAppKitProvider appName="Demo">{children}</ShopifyAppKitProvider>
+    });
+    await expect(result.current.open({ multiple: true, filter: "status:active" })).resolves.toEqual({
+      canceled: false,
+      selection: [{ id: "gid://shopify/Product/2", title: "Shoe", handle: "shoe", imageUrl: "https://cdn/x" }]
+    });
+    expect(resourcePicker).toHaveBeenCalledWith({ type: "product", action: "select", multiple: true, query: "status:active" });
+    delete (window as Window & { shopify?: unknown }).shopify;
+  });
+
+  it("maps an App Bridge picker cancellation to a stable result", async () => {
+    const resourcePicker = vi.fn().mockResolvedValue(undefined);
+    (window as Window & { shopify?: unknown }).shopify = { resourcePicker };
+    const { result } = renderHook(() => useCollectionPicker(), {
+      wrapper: ({ children }: PropsWithChildren) => <ShopifyAppKitProvider appName="Demo">{children}</ShopifyAppKitProvider>
+    });
+    await expect(result.current.open()).resolves.toEqual({ canceled: true, selection: [] });
+    delete (window as Window & { shopify?: unknown }).shopify;
+  });
 });

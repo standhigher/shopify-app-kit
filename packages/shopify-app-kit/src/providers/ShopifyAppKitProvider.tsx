@@ -15,6 +15,7 @@ export function ShopifyAppKitProvider({
   messages,
   analytics,
   navigation,
+  saveBar,
   resourcePicker,
   environment
 }: ShopifyAppKitProviderProps) {
@@ -26,10 +27,11 @@ export function ShopifyAppKitProvider({
       messages: { ...defaultMessages, ...messages },
       analytics,
       navigation,
+      saveBar,
       resourcePicker,
       environment: environment ?? detectEnvironment()
     }),
-    [appName, locale, shop, messages, analytics, navigation, resourcePicker, environment]
+    [appName, locale, shop, messages, analytics, navigation, saveBar, resourcePicker, environment]
   );
 
   return (

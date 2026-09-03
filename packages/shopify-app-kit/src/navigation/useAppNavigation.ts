@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useShopifyAppKit } from "../providers/ShopifyAppKitContext";
+import { getAppBridgeRuntime } from "../runtime/appBridgeRuntime";
 import type { AdminTarget, AppNavigation, OpenExternalOptions } from "./navigation-types";
 
 const SAFE_PROTOCOLS = new Set(["http:", "https:", "mailto:"]);
@@ -38,6 +39,16 @@ export function useAppNavigation(): AppNavigation {
         return;
       }
 
+      const runtime = getAppBridgeRuntime();
+      if (runtime?.navigate) {
+        await runtime.navigate(path);
+        return;
+      }
+      if (runtime?.navigation?.navigate) {
+        await runtime.navigation.navigate(path);
+        return;
+      }
+
       getWindow()?.location.assign(path);
     },
     [navigation]
@@ -48,6 +59,20 @@ export function useAppNavigation(): AppNavigation {
       const path = normalizeAdminPath(input);
       if (navigation?.openAdmin) {
         await navigation.openAdmin(path);
+        return;
+      }
+
+      const runtime = getAppBridgeRuntime();
+      if (runtime?.admin?.open) {
+        await runtime.admin.open(path);
+        return;
+      }
+      if (runtime?.navigation?.open) {
+        await runtime.navigation.open(path);
+        return;
+      }
+      if (runtime?.navigation?.navigate) {
+        await runtime.navigation.navigate(path);
         return;
       }
 

@@ -7,6 +7,7 @@ import {
   LeaveGuard,
   useDirtyForm
 } from "@standhigher/shopify-app-kit/save-flow";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
 
 describe("save flow", () => {
   it("tracks dirty, save, and discard state", async () => {
@@ -177,6 +178,41 @@ describe("save flow", () => {
     expect(screen.getByRole("button", { name: "Discard" })).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("Save")).toBeInTheDocument());
     expect(document.querySelector('[class*="Polaris-Frame-ContextualSaveBar"]')).toBeInTheDocument();
+  });
+
+  it("uses the App Bridge Save Bar adapter when available", async () => {
+    const show = vi.fn();
+    const hide = vi.fn();
+    const { rerender, unmount } = render(
+      <ShopifyAppKitProvider appName="Demo" saveBar={{ show, hide }}>
+        <AppSaveBar dirty id="settings-save" onSave={vi.fn()} onDiscard={vi.fn()} />
+      </ShopifyAppKitProvider>
+    );
+    await waitFor(() => expect(show).toHaveBeenCalledWith("settings-save"));
+    rerender(
+      <ShopifyAppKitProvider appName="Demo" saveBar={{ show, hide }}>
+        <AppSaveBar dirty={false} id="settings-save" onSave={vi.fn()} onDiscard={vi.fn()} />
+      </ShopifyAppKitProvider>
+    );
+    await waitFor(() => expect(hide).toHaveBeenCalledWith("settings-save"));
+    unmount();
+  });
+
+  it("falls back to Polaris when the App Bridge Save Bar throws", async () => {
+    const show = vi.fn(() => {
+      throw new Error("bridge unavailable");
+    });
+    const hide = vi.fn();
+    render(
+      <AppProvider i18n={{}}>
+        <Frame>
+          <ShopifyAppKitProvider appName="Demo" saveBar={{ show, hide }}>
+            <AppSaveBar dirty onSave={vi.fn()} onDiscard={vi.fn()} />
+          </ShopifyAppKitProvider>
+        </Frame>
+      </AppProvider>
+    );
+    await waitFor(() => expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument());
   });
 
   it("registers a beforeunload guard while dirty", () => {
