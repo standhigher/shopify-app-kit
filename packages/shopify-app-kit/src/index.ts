@@ -14,3 +14,10 @@ export type {
   ShopifyAppKitContextValue,
   ShopifyAppKitProviderProps
 } from "./core";
+export type {
+  AppKitRenderers,
+  BannerRendererProps,
+  ModalRendererProps,
+  SaveBarRendererProps,
+  ToastRendererProps
+} from "./providers/provider-types";

@@ -8,5 +8,6 @@ export const defaultMessages: AppKitMessages = {
   confirm: "Confirm",
   cancel: "Cancel",
   delete: "Delete",
-  deleting: "Deleting..."
+  deleting: "Deleting...",
+  unsavedChanges: "You have unsaved changes."
 };

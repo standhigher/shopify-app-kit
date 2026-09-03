@@ -9,3 +9,8 @@
 See the repository changelog for the full release history:
 
 https://github.com/standhigher/shopify-app-kit/blob/main/CHANGELOG.md
+## 0.7.0
+
+- Added a real Storybook with interactive stories for the public experience.
+- Added locale fallback, localized provider copy, and constrained renderer slots.
+- Improved modal focus, scroll locking, layered Escape handling, and toast queue controls.

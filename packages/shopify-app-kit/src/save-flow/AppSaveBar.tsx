@@ -21,12 +21,13 @@ export function AppSaveBar({
   saving = false,
   id = "app-kit-save-bar",
   adapter: explicitAdapter,
-  saveLabel = defaultMessages.save,
-  discardLabel = defaultMessages.discard,
+  saveLabel,
+  discardLabel,
   onSave,
   onDiscard
 }: AppSaveBarProps) {
   const context = useContext(ShopifyAppKitContext);
+  const messages = context?.messages ?? defaultMessages;
   const [bridgeFailed, setBridgeFailed] = useState(false);
   const adapter = useMemo(
     () => explicitAdapter ?? context?.saveBar ?? createShopifySaveBarAdapter(),
@@ -57,12 +58,20 @@ export function AppSaveBar({
 
   if (!dirty || (adapter && !bridgeFailed)) return null;
 
-  return (
+  const CustomRenderer = context?.renderers?.saveBar;
+  const DefaultSaveBar = (props: Omit<AppSaveBarProps, "adapter">) => (
     <div data-app-kit-save-bar="">
       <ContextualSaveBar
-        saveAction={{ content: saveLabel, loading: saving, disabled: saving, onAction: onSave }}
-        discardAction={{ content: discardLabel, disabled: saving, onAction: onDiscard }}
+        saveAction={{ content: props.saveLabel ?? messages.save, loading: props.saving, disabled: props.saving, onAction: props.onSave }}
+        discardAction={{ content: props.discardLabel ?? messages.discard, disabled: props.saving, onAction: props.onDiscard }}
       />
     </div>
+  );
+  if (CustomRenderer) {
+    return <CustomRenderer dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} DefaultComponent={DefaultSaveBar} />;
+  }
+
+  return (
+    <DefaultSaveBar dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} />
   );
 }

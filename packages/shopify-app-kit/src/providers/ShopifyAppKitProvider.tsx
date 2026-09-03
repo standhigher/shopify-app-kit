@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { defaultMessages } from "../i18n/defaultMessages";
+import { getLocaleMessages } from "../i18n/localeMessages";
 import { detectEnvironment } from "../runtime/environment";
 import { ShopifyAppKitContext } from "./ShopifyAppKitContext";
 import type {
@@ -17,21 +18,23 @@ export function ShopifyAppKitProvider({
   navigation,
   saveBar,
   resourcePicker,
-  environment
+  environment,
+  renderers
 }: ShopifyAppKitProviderProps) {
   const value = useMemo<ShopifyAppKitContextValue>(
     () => ({
       appName,
       locale,
       shop,
-      messages: { ...defaultMessages, ...messages },
+      messages: { ...defaultMessages, ...getLocaleMessages(locale), ...messages },
       analytics,
       navigation,
       saveBar,
       resourcePicker,
-      environment: environment ?? detectEnvironment()
+      environment: environment ?? detectEnvironment(),
+      renderers
     }),
-    [appName, locale, shop, messages, analytics, navigation, saveBar, resourcePicker, environment]
+    [appName, locale, shop, messages, analytics, navigation, saveBar, resourcePicker, environment, renderers]
   );
 
   return (

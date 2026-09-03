@@ -7,6 +7,7 @@ export interface AppKitMessages {
   cancel: string;
   delete: string;
   deleting: string;
+  unsavedChanges: string;
 }
 
 export type AppKitMessageOverrides = Partial<AppKitMessages>;

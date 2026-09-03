@@ -4,6 +4,10 @@ Core 层提供多个 Shopify embedded app 可以复用的底层通用能力。�
 
 视觉组件使用 Polaris 13.x peer dependency；宿主负责安装并提供 Polaris `AppProvider`、`Frame` 以及 CSS。未安装 Polaris 时，npm 会提示缺少 peer dependency，开发环境由 Polaris 给出配置错误；本包不会静默切换到另一套 UI。
 
+locale fallback 支持 `en` 与 `zh-CN`：区域标签按语言回退，未知语言回退到英文。
+`messages` 支持按字段覆盖文案。`renderers` 提供受限包装 slot；自定义 renderer
+会收到 `DefaultComponent`，必须继续渲染它，以保留默认 Polaris 交互和无障碍契约。
+
 ## 公开入口
 
 业务项目应使用扁平的公开 subpath：
