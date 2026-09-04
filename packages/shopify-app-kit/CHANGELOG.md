@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2026-09-04
+
+- Polished Storybook Docs pages with structured sections for summaries, parameters, usage steps, host requirements, and fallback behavior.
+- Added a Storybook smoke test covering the structured documentation layout.
+
 ## 1.0.2 - 2026-09-04
 
 - Added Storybook Getting Started and feature parameter usage guidance.
