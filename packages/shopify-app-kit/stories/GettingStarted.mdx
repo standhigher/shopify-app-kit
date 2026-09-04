@@ -1,0 +1,71 @@
+import { Meta, Title, Description } from "@storybook/blocks";
+
+<Meta title="Getting Started/使用说明" />
+
+<Title />
+
+<Description>
+  Shopify App Kit is a Polaris-aligned toolkit for Shopify Embedded Apps. The
+  examples below show the public API, host responsibilities, and fallback
+  behavior without requiring a live Shopify store.
+</Description>
+
+## 快速开始
+
+在宿主应用中安装并提供 React、Polaris 和 Polaris 样式：
+
+```bash
+npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
+```
+
+```tsx
+import { AppProvider, Frame } from "@shopify/polaris";
+import "@shopify/polaris/build/esm/styles.css";
+import { ShopifyAppKitProvider } from "@standhigher/shopify-app-kit/core";
+import { ToastProvider } from "@standhigher/shopify-app-kit/feedback";
+
+export function App() {
+  return (
+    <AppProvider i18n={{}}>
+      <Frame>
+        <ShopifyAppKitProvider appName="Fulfillment Desk">
+          <ToastProvider>
+            <Routes />
+          </ToastProvider>
+        </ShopifyAppKitProvider>
+      </Frame>
+    </AppProvider>
+  );
+}
+```
+
+宿主负责 `@shopify/polaris`、`AppProvider`、`Frame` 和 CSS；App Kit 不会重复创建 Polaris context，也不会把 Polaris 打包进发布包。
+
+## 如何阅读 Story
+
+- **Canvas**：查看组件的实际渲染结果并执行按钮操作。
+- **Controls**：Provider 等支持 args 的 Story 可以直接调整参数。
+- **Docs**：查看参数表、宿主前置条件、fallback 和最小接入示例。
+- 所有示例都可在没有 Shopify host 或 App Bridge 的环境中打开；需要宿主能力的功能会展示稳定的 fallback。
+
+## Story 导航
+
+- [Provider / ShopifyAppKitProvider](?path=/docs/provider-shopifyappkitprovider--docs)：应用名称、locale、文案和 renderer 注入。
+- [Feedback / Polaris Feedback](?path=/docs/feedback-polaris-feedback--docs)：Polaris Banner、Modal 和 Toast 交互。
+- [Save Flow / AppSaveBar](?path=/docs/save-flow-appsavebar--docs)：dirty 状态、保存、丢弃和 fallback Save Bar。
+- [Navigation / useAppNavigation](?path=/docs/navigation-useappnavigation--docs)：应用内、Admin 和外部链接导航。
+- [Resource Picker / useProductPicker](?path=/docs/resource-picker-useproductpicker--docs)：选择参数、取消结果和 host fallback。
+- [Analytics / createAnalytics](?path=/docs/analytics-createanalytics--docs)：事件属性、adapter 和状态反馈。
+
+## Shopify host 与 fallback
+
+- 在 Embedded App 中，App Bridge adapter 会优先使用宿主提供的能力。
+- 没有 App Bridge 时，Navigation 使用浏览器导航，Resource Picker 返回 `canceled: true`，Save Bar 使用 Polaris fallback。
+- 外部 URL 仅允许安全协议；Admin 目标必须是相对 Shopify Admin 路径。
+- 这些 fallback 便于本地开发和测试，但生产 Embedded App 仍应配置真实宿主能力。
+
+## 相关文档
+
+- [Business usage guide](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/business-users.md)
+- [Compatibility matrix](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/compatibility.md)
+- [Storybook online demo](https://standhigher.github.io/shopify-app-kit/)

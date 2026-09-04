@@ -15,6 +15,7 @@
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [GitHub 仓库](https://github.com/standhigher/shopify-app-kit)
 - [Storybook 示例](https://standhigher.github.io/shopify-app-kit/)
+- [Storybook 使用说明](https://standhigher.github.io/shopify-app-kit/?path=/docs/getting-started-使用说明--docs)
 - [示例代码](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API 文档](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP 与 Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.zh-CN.md)
@@ -184,7 +185,7 @@ HTTP client 会解包统一后端响应，默认 timeout 为 `15000ms`，仅对 
 
 ## Demo / Storybook
 
-Storybook 已配置 Provider、Polaris Feedback、Save Flow、Navigation、Resource Picker 和 Analytics 的可交互 stories。使用 `npm run storybook` 本地查看，或使用 `npm run build-storybook` 构建静态站点。
+Storybook 已配置 Provider、Polaris Feedback、Save Flow、Navigation、Resource Picker 和 Analytics 的可交互 stories。[使用说明](https://standhigher.github.io/shopify-app-kit/?path=/docs/getting-started-使用说明--docs)包含参数、Polaris 宿主配置、App Bridge adapter 和 fallback 行为说明。使用 `npm run storybook` 本地查看，或使用 `npm run build-storybook` 构建静态站点。
 
 ### Locale 与 renderer slot
 

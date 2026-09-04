@@ -81,6 +81,8 @@ npm run pack:dry-run
 | `npm run test:e2e` | 使用 Chromium 运行 Storybook 浏览器 smoke 测试 |
 | `npm run pack:dry-run` | 检查 npm 包内容，不真正发布 |
 
+Storybook 在线示例：<https://standhigher.github.io/shopify-app-kit/>。其中 `Getting Started / 使用说明` 页面解释了各 Story 的参数、交互、Polaris 宿主配置和 App Bridge fallback 行为。
+
 ### 本地调试
 
 测试文件位于 `packages/shopify-app-kit/src/*.test.ts(x)`。测试使用 Vitest、Testing Library 和 `happy-dom`。
@@ -113,6 +115,8 @@ Vitest 通过 `packages/shopify-app-kit/vitest.config.ts` 将这些 public subpa
 
 ```bash
 npm run build
+npm run storybook
+npm run build-storybook
 npm run pack:dry-run
 ```
 
@@ -260,7 +264,11 @@ npm run pack:dry-run
 | `npm run test:ci` | Run verbose serial CI-style tests |
 | `npm run typecheck` | Run TypeScript checks |
 | `npm run build` | Build ESM, CJS, and type declarations with tsup |
+| `npm run storybook` | Start interactive component stories |
+| `npm run build-storybook` | Build the static Storybook site |
 | `npm run pack:dry-run` | Inspect npm package contents without publishing |
+
+Online Storybook demo: <https://standhigher.github.io/shopify-app-kit/>. The `Getting Started / 使用说明` page explains story parameters, Polaris host setup, and App Bridge fallback behavior.
 
 ### Local Debugging
 

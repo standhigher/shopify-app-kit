@@ -6,6 +6,7 @@
 - Added the deployed Storybook URL to package metadata and README links.
 - Normalized lockfile tarball sources to the public npmjs registry for CI and Pages installs.
 - Hardened the Storybook feedback smoke test against duplicate toast notifications.
+- Added Storybook Getting Started and feature parameter usage guidance.
 
 ## 1.0.0 - 2026-09-03
 

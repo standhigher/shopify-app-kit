@@ -15,6 +15,7 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 - [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [GitHub repository](https://github.com/standhigher/shopify-app-kit)
 - [Storybook demo](https://standhigher.github.io/shopify-app-kit/)
+- [Storybook usage guide](https://standhigher.github.io/shopify-app-kit/?path=/docs/getting-started-使用说明--docs)
 - [Examples](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API docs](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP and Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.md)
@@ -190,7 +191,7 @@ The HTTP client unwraps the shared backend envelope, defaults to a `15000ms` tim
 
 Examples live in [`examples`](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples).
 
-Storybook is configured with interactive stories for the Provider, Polaris feedback, save flow, navigation, resource picker, and analytics. Run `npm run storybook` for local interaction or `npm run build-storybook` for a static build.
+Storybook is configured with interactive stories for the Provider, Polaris feedback, save flow, navigation, resource picker, and analytics. The [Getting Started usage guide](https://standhigher.github.io/shopify-app-kit/?path=/docs/getting-started-使用说明--docs) explains parameters, Polaris host setup, App Bridge adapters, and fallback behavior. Run `npm run storybook` for local interaction or `npm run build-storybook` for a static build.
 
 ### Localization and renderer slots
 
