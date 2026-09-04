@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 - 2026-09-04
+
+- Added Storybook Getting Started and feature parameter usage guidance.
+- Clarified Polaris host setup, App Bridge adapters, and fallback behavior.
+
 ## 1.0.1 - 2026-09-04
 
 - Added the root `npm run login:npm` helper for npmjs web authentication before publishing.
