@@ -18,7 +18,7 @@ const packageJson = JSON.parse(
 
 describe("1.0 public API surface", () => {
   it("declares the stable package version and Polaris peer contract", () => {
-    expect(packageJson.version).toBe("1.0.0");
+    expect(packageJson.version).toBe("1.0.1");
     expect(packageJson.peerDependencies?.["@shopify/polaris"]).toBe("^13.9.5");
   });
 

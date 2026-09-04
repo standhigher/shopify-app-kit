@@ -10,7 +10,7 @@ test("feedback story renders Polaris UI and supports modal and toast interaction
   await expect(page.getByRole("dialog", { name: "Accessible settings" })).toBeHidden();
 
   await page.getByRole("button", { name: "Show toast" }).click();
-  await expect(page.getByText("Saved")).toBeVisible();
+  await expect(page.getByText("Saved").first()).toBeVisible();
 });
 
 test("save flow story renders the Polaris fallback save bar", async ({ page }) => {

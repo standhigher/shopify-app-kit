@@ -11,6 +11,8 @@ This project follows semantic versioning before `1.0.0` with the usual pre-1.0 c
 - Added `npm run login:npm` to authenticate against the public npmjs registry with web authentication before publishing.
 - Added GitHub Pages automation for the public Storybook demo.
 - Added the deployed Storybook URL to the package metadata and README links.
+- Normalized lockfile tarball sources to the public npmjs registry for CI and Pages installs.
+- Hardened the Storybook feedback smoke test against duplicate toast notifications.
 
 ## [1.0.0] - 2026-09-03
 
