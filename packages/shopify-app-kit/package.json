@@ -4,7 +4,7 @@
   "description": "Typed React utilities for Shopify embedded app feedback, save flows, navigation, resource picking, and analytics adapters.",
   "license": "MIT",
   "author": "Standhigher",
-  "homepage": "https://github.com/standhigher/shopify-app-kit#readme",
+  "homepage": "https://standhigher.github.io/shopify-app-kit/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/standhigher/shopify-app-kit.git",

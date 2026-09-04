@@ -14,7 +14,8 @@
 
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [GitHub 仓库](https://github.com/standhigher/shopify-app-kit)
-- [Demo / Storybook 状态](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
+- [Storybook 示例](https://standhigher.github.io/shopify-app-kit/)
+- [示例代码](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API 文档](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP 与 Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.zh-CN.md)
 - [Core HTTP / Error 设计实现说明](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core-http-error-design.zh-CN.md)

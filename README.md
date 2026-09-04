@@ -15,6 +15,7 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify-app-kit).
 
 - [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+- [Storybook demo](https://standhigher.github.io/shopify-app-kit/)
 - [Core HTTP and Error](./packages/shopify-app-kit/docs/core.md)
 - [Analytics](./packages/shopify-app-kit/docs/analytics.md)
 - [Usage docs](./packages/shopify-app-kit/docs/business-users.md)
@@ -56,7 +57,15 @@ See the package README for the full API overview: [`packages/shopify-app-kit/REA
 
 ## Publish
 
-After completing the release checks, publish the package from the repository root:
+Log in to npmjs from the repository root before publishing:
+
+```bash
+npm run login:npm
+```
+
+Follow the npmjs web authentication link shown in the terminal.
+
+After completing the release checks and confirming your npmjs account has publish access, publish the package:
 
 ```bash
 npm run publish:pkg

@@ -15,6 +15,7 @@
 实际发布包位于 [`packages/shopify-app-kit`](./packages/shopify-app-kit)。
 
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
+- [Storybook 示例](https://standhigher.github.io/shopify-app-kit/)
 - [Core HTTP 与 Error](./packages/shopify-app-kit/docs/core.zh-CN.md)
 - [Core HTTP / Error 设计实现说明](./packages/shopify-app-kit/docs/core-http-error-design.zh-CN.md)
 - [Analytics 使用说明](./packages/shopify-app-kit/docs/analytics.zh-CN.md)
@@ -57,7 +58,15 @@ npm --prefix packages/shopify-app-kit run test:e2e
 
 ## 发布
 
-完成发布前检查后，可以直接在仓库根目录发布 npm 包：
+发布前先在仓库根目录登录 npmjs：
+
+```bash
+npm run login:npm
+```
+
+请按终端输出的链接完成 npmjs 网页认证。
+
+完成发布前检查并确认当前 npmjs 账号具有发布权限后，再执行：
 
 ```bash
 npm run publish:pkg

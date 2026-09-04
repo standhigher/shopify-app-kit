@@ -4,7 +4,13 @@ const config: StorybookConfig = {
   stories: ["../stories/**/*.stories.@(ts|tsx)"],
   addons: ["@storybook/addon-essentials", "@storybook/addon-interactions"],
   framework: { name: "@storybook/react-vite", options: {} },
-  docs: { autodocs: "tag" }
+  docs: { autodocs: "tag" },
+  async viteFinal(config) {
+    return {
+      ...config,
+      base: process.env.STORYBOOK_BASE_PATH ?? "/"
+    };
+  }
 };
 
 export default config;

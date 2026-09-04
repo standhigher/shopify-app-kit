@@ -14,7 +14,8 @@ Typed React utilities for Shopify embedded app feedback, save flows, navigation,
 
 - [npm package](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
 - [GitHub repository](https://github.com/standhigher/shopify-app-kit)
-- [Demo / Storybook status](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
+- [Storybook demo](https://standhigher.github.io/shopify-app-kit/)
+- [Examples](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/examples)
 - [API docs](https://github.com/standhigher/shopify-app-kit/tree/main/packages/shopify-app-kit/docs)
 - [Core HTTP and Error](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/core.md)
 - [Analytics](https://github.com/standhigher/shopify-app-kit/blob/main/packages/shopify-app-kit/docs/analytics.md)

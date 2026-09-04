@@ -4,6 +4,14 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [Unreleased]
+
+### Added
+
+- Added `npm run login:npm` to authenticate against the public npmjs registry with web authentication before publishing.
+- Added GitHub Pages automation for the public Storybook demo.
+- Added the deployed Storybook URL to the package metadata and README links.
+
 ## [1.0.0] - 2026-09-03
 
 ### Added

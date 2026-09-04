@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Added the root `npm run login:npm` helper for npmjs web authentication before publishing.
+- Added the deployed Storybook URL to package metadata and README links.
+
 ## 1.0.0 - 2026-09-03
 
 - Froze the documented root and public subpath API surface with ESM, CommonJS, and TypeScript declaration coverage.

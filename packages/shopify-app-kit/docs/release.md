@@ -12,6 +12,12 @@ https://registry.npmjs.org
 
 不要使用私有镜像或本地 registry 生成发布用 lockfile。
 
+交互式 Storybook 示例会从 `main` 自动部署到：
+
+```text
+https://standhigher.github.io/shopify-app-kit/
+```
+
 ### 发布前检查
 
 ```bash
@@ -97,6 +103,12 @@ https://registry.npmjs.org
 ```
 
 Do not use private mirrors or local registries for release lockfiles.
+
+The interactive Storybook demo is deployed from `main` to:
+
+```text
+https://standhigher.github.io/shopify-app-kit/
+```
 
 ### Pre-release checks
 
