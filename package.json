@@ -13,6 +13,7 @@
     "build": "npm --prefix packages/shopify-app-kit run build",
     "build-storybook": "npm --prefix packages/shopify-app-kit run build-storybook",
     "pack:dry-run": "cd packages/shopify-app-kit && npm pack --dry-run",
+    "login:npm": "npm login --auth-type=web --registry=https://registry.npmjs.org/",
     "publish:pkg": "cd packages/shopify-app-kit && npm publish --access public --registry=https://registry.npmjs.org/"
   }
 }
