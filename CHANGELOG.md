@@ -4,7 +4,7 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
-## [Unreleased]
+## [1.0.1] - 2026-09-04
 
 ### Added
 
