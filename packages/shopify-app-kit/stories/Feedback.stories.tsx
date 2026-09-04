@@ -3,6 +3,7 @@ import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { AppBanner, AppModal, ToastProvider, useToast } from "../src/feedback";
 import { ShopifyAppKitProvider } from "../src/core";
+import { FeedbackDocs } from "./docs/FeedbackDocs";
 
 function FeedbackDemo() {
   const [open, setOpen] = useState(false);
@@ -16,9 +17,9 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     docs: {
+      page: FeedbackDocs,
       description: {
-        component: "Feedback 默认渲染 Shopify Polaris 组件。AppBanner 接收 title、tone 和 children；AppModal 接收 open、title、footer、onClose；ToastProvider 接收 duration（默认 5000ms）、maxToasts（默认 3）和 dedupe（默认 false）。需要宿主先提供 Polaris AppProvider、Frame 和 CSS。",
-        story: "点击 Open modal 查看 Escape、Backdrop 和 focus restoration；点击 Show toast 查看 Polaris Toast。ToastProvider 必须包裹使用 useToast 的内容。"
+        component: "使用 Shopify Polaris 提供 Banner、Modal、Confirm 和 Toast 反馈。"
       }
     }
   }

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ShopifyAppKitProvider, useShopifyAppKit } from "../src/core";
+import { ProviderDocs } from "./docs/ProviderDocs";
 
 function Probe() {
   const kit = useShopifyAppKit();
@@ -12,8 +13,9 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     docs: {
+      page: ProviderDocs,
       description: {
-        component: "为 Shopify Embedded App 提供 appName、locale、文案、宿主 adapter 和 renderer 注入。appName 为必填参数，locale 默认使用 en；Polaris AppProvider 和 CSS 由宿主负责。"
+        component: "为 Shopify Embedded App 提供统一的上下文、文案和宿主能力注入。"
       }
     }
   },

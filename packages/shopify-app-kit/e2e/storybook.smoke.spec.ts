@@ -28,3 +28,13 @@ test("analytics and picker stories respond in a host-free environment", async ({
   await page.getByRole("button", { name: "Pick products" }).click();
   await expect(page.getByRole("status")).toHaveText("Canceled");
 });
+
+test("resource picker docs use a structured usage layout", async ({ page }) => {
+  await page.goto("/?path=/docs/resource-picker-useproductpicker--docs");
+  const docs = page.frameLocator('iframe[title="storybook-preview-iframe"]');
+  await expect(docs.getByRole("heading", { name: "功能简介" })).toBeVisible();
+  await expect(docs.getByRole("heading", { name: "参数" })).toBeVisible();
+  await expect(docs.getByRole("heading", { name: "如何操作" })).toBeVisible();
+  await expect(docs.getByRole("heading", { name: "宿主要求" })).toBeVisible();
+  await expect(docs.getByRole("heading", { name: "Fallback 与限制" })).toBeVisible();
+});
