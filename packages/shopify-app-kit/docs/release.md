@@ -20,7 +20,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 cd packages/shopify-app-kit
 npm pack --dry-run --registry=https://registry.npmjs.org/
 ```
@@ -38,6 +40,8 @@ git tag -a v0.2.0 -m "Release v0.2.0"
 git push origin main
 git push origin v0.2.0
 ```
+
+稳定版 `1.0.0` 使用 `latest` dist-tag；RC 版本使用 `next` dist-tag。
 
 ### Web Auth 手动发布
 
@@ -102,7 +106,9 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
+npm run verify:package
 npm run build-storybook
+npm --prefix packages/shopify-app-kit run test:e2e
 cd packages/shopify-app-kit
 npm pack --dry-run --registry=https://registry.npmjs.org/
 ```
@@ -120,6 +126,8 @@ git tag -a v0.2.0 -m "Release v0.2.0"
 git push origin main
 git push origin v0.2.0
 ```
+
+The stable `1.0.0` release uses the `latest` dist-tag; RC versions use `next`.
 
 ### Manual Web Auth publish
 

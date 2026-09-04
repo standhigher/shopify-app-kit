@@ -34,7 +34,17 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
       - run: npm run build-storybook
-      - run: npm publish --access public --provenance
+      - run: npm --prefix packages/shopify-app-kit run verify:package
+      - run: npx playwright install --with-deps chromium
+      - run: npm --prefix packages/shopify-app-kit run test:e2e
+      - name: Publish package with release channel
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag=latest
+          case "$version" in
+            *-*) tag=next ;;
+          esac
+          npm publish --access public --tag "$tag" --provenance
         working-directory: packages/shopify-app-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
