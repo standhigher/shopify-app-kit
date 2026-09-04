@@ -10,7 +10,14 @@ const preview: Preview = {
       </AppProvider>
     )
   ],
-  parameters: { layout: "fullscreen" }
+  parameters: {
+    layout: "fullscreen",
+    options: {
+      storySort: {
+        order: ["Getting Started", "Provider", "Feedback", "Save Flow", "Navigation", "Resource Picker", "Analytics"]
+      }
+    }
+  }
 };
 
 export default preview;

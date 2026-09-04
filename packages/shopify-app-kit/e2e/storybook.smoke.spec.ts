@@ -38,3 +38,17 @@ test("resource picker docs use a structured usage layout", async ({ page }) => {
   await expect(docs.getByRole("heading", { name: "宿主要求" })).toBeVisible();
   await expect(docs.getByRole("heading", { name: "Fallback 与限制" })).toBeVisible();
 });
+
+test("getting started docs render without errors and are listed first", async ({ page }) => {
+  await page.goto("/?path=/docs/getting-started-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E--docs");
+
+  const docs = page.frameLocator('iframe[title="storybook-preview-iframe"]');
+  await expect(docs.getByRole("heading", { name: "使用说明", exact: true })).toBeVisible({ timeoutMs: 15_000 });
+  await expect(docs.getByRole("heading", { name: "Cannot read properties of undefined (reading 'trim')" })).toHaveCount(0);
+
+  const expectedOrder = ["Getting Started", "Provider", "Feedback", "Save Flow", "Navigation", "Resource Picker", "Analytics"];
+  const sidebarLabels = await page.getByRole("navigation").getByRole("button").allTextContents();
+  const sectionOrder = sidebarLabels.map((label) => label.trim()).filter((label) => expectedOrder.includes(label));
+
+  expect(sectionOrder).toEqual(expectedOrder);
+});
