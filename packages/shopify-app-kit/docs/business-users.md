@@ -38,7 +38,7 @@ export function App() {
 }
 ```
 
-`AppBanner`、`AppModal`、`ConfirmDialog` 和 `AppSaveBar` 默认渲染 Polaris 组件。`AppSaveBar` 依赖 `Frame` 的 contextual save bar；Kit 不会隐式创建 Polaris Provider。
+`AppBanner`、`AppModal` 和 `ConfirmDialog` 默认渲染 Polaris 组件。配置 Save Bar adapter 后，`AppSaveBar` 使用 Shopify App Bridge 原生 `ui-save-bar`，不依赖 Polaris CSS 或 `Frame`。没有 adapter 时默认不渲染；如需自定义 UI，请通过 `renderers.saveBar` 传入。Kit 不会隐式创建 Polaris Provider。
 
 按能力从 subpath 引入，不建议从根入口导入所有能力：
 

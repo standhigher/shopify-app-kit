@@ -71,7 +71,7 @@ export function App() {
 }
 ```
 
-`AppBanner`、`AppModal`、`ConfirmDialog` 和 `AppSaveBar` 默认使用 Polaris；`AppSaveBar` 使用 `ContextualSaveBar`，必须放在宿主 `Frame` 下。`ToastProvider` 只管理 Toast/Confirm 状态，不替宿主创建 `AppProvider` 或 `Frame`。
+`AppBanner`、`AppModal` 和 `ConfirmDialog` 默认使用 Polaris。配置 Save Bar adapter 后，`AppSaveBar` 默认使用 Shopify App Bridge 原生 `ui-save-bar`，不需要业务方额外引入 Polaris CSS，也不要求放在宿主 `Frame` 下。没有 adapter 时默认不渲染；如需非 Embedded 环境或自定义样式，请通过 `renderers.saveBar` 传入自定义 UI。`ToastProvider` 只管理 Toast/Confirm 状态，不替宿主创建 `AppProvider` 或 `Frame`。
 
 按模块从 subpath exports 引入：
 
@@ -93,7 +93,7 @@ import { ApiError } from "@standhigher/shopify-app-kit/error";
 | `@standhigher/shopify-app-kit/http` | Embedded app 后端请求客户端，支持 timeout、request id、GET retry、响应解包 |
 | `@standhigher/shopify-app-kit/error` | `ApiError`、后端响应包识别、错误归一化 |
 | `@standhigher/shopify-app-kit/feedback` | Toast、Banner、Modal、确认弹窗、Promise 风格确认 hook |
-| `@standhigher/shopify-app-kit/save-flow` | 脏数据状态、保存条 fallback、浏览器离开保护 |
+| `@standhigher/shopify-app-kit/save-flow` | 脏数据状态、App Bridge 保存条、浏览器离开保护 |
 | `@standhigher/shopify-app-kit/navigation` | App 内跳转、Shopify Admin 链接、安全外链 |
 | `@standhigher/shopify-app-kit/resource-picker` | 产品和集合选择 hook，通过业务 adapter 接入 |
 | `@standhigher/shopify-app-kit/analytics` | 全局事件上报门面、事件 schema 校验、多 adapter 分发、console/noop/backend adapter |

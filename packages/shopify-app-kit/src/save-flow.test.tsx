@@ -159,11 +159,9 @@ describe("save flow", () => {
     expect(result.current.status).toBe("dirty");
   });
 
-  it("renders a non-embedded fallback save bar", async () => {
-    const user = userEvent.setup();
+  it("does not render a default save bar without an App Bridge adapter", () => {
     const onSave = vi.fn();
     const onDiscard = vi.fn();
-
     render(
       <AppProvider i18n={{}}>
         <Frame>
@@ -172,37 +170,42 @@ describe("save flow", () => {
       </AppProvider>
     );
 
-    await user.click(screen.getByRole("button", { name: "Save" }));
-
-    expect(onSave).toHaveBeenCalled();
-    expect(screen.getByRole("button", { name: "Discard" })).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByText("Save")).toBeInTheDocument());
-    expect(document.querySelector('[class*="Polaris-Frame-ContextualSaveBar"]')).toBeInTheDocument();
+    expect(document.querySelector("ui-save-bar")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
   });
 
   it("uses the App Bridge Save Bar adapter when available", async () => {
     const show = vi.fn();
     const hide = vi.fn();
+    const onSave = vi.fn();
+    const onDiscard = vi.fn();
+    const user = userEvent.setup();
     const { rerender, unmount } = render(
       <ShopifyAppKitProvider appName="Demo" saveBar={{ show, hide }}>
-        <AppSaveBar dirty id="settings-save" onSave={vi.fn()} onDiscard={vi.fn()} />
+        <AppSaveBar dirty id="settings-save" onSave={onSave} onDiscard={onDiscard} />
       </ShopifyAppKitProvider>
     );
     await waitFor(() => expect(show).toHaveBeenCalledWith("settings-save"));
+    expect(document.querySelector("ui-save-bar#settings-save")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Save" }));
+    await user.click(screen.getByRole("button", { name: "Discard" }));
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onDiscard).toHaveBeenCalledTimes(1);
     rerender(
       <ShopifyAppKitProvider appName="Demo" saveBar={{ show, hide }}>
-        <AppSaveBar dirty={false} id="settings-save" onSave={vi.fn()} onDiscard={vi.fn()} />
+        <AppSaveBar dirty={false} id="settings-save" onSave={onSave} onDiscard={onDiscard} />
       </ShopifyAppKitProvider>
     );
     await waitFor(() => expect(hide).toHaveBeenCalledWith("settings-save"));
     unmount();
   });
 
-  it("falls back to Polaris when the App Bridge Save Bar throws", async () => {
+  it("does not render a default save bar when the App Bridge adapter throws", async () => {
     const show = vi.fn(() => {
       throw new Error("bridge unavailable");
     });
     const hide = vi.fn();
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     render(
       <AppProvider i18n={{}}>
         <Frame>
@@ -212,7 +215,31 @@ describe("save flow", () => {
         </Frame>
       </AppProvider>
     );
-    await waitFor(() => expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument());
+    await waitFor(() => expect(show).toHaveBeenCalled());
+    expect(screen.queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
+    expect(warning).toHaveBeenCalledWith(
+      "Shopify App Bridge Save Bar unavailable; the default Save Bar is hidden.",
+      expect.any(Error)
+    );
+    warning.mockRestore();
+  });
+
+  it("renders a custom save bar without an App Bridge adapter", async () => {
+    const user = userEvent.setup();
+    const onSave = vi.fn();
+    render(
+      <ShopifyAppKitProvider
+        appName="Demo"
+        renderers={{
+          saveBar: ({ onSave: save }) => <button onClick={save}>Custom Save</button>
+        }}
+      >
+        <AppSaveBar dirty onSave={onSave} onDiscard={vi.fn()} />
+      </ShopifyAppKitProvider>
+    );
+
+    await user.click(screen.getByRole("button", { name: "Custom Save" }));
+    expect(onSave).toHaveBeenCalledTimes(1);
   });
 
   it("registers a beforeunload guard while dirty", () => {

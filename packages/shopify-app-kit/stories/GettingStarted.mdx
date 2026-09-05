@@ -52,7 +52,7 @@ export function App() {
 
 - [Provider / ShopifyAppKitProvider](?path=/docs/provider-shopifyappkitprovider--docs)：应用名称、locale、文案和 renderer 注入。
 - [Feedback / Polaris Feedback](?path=/docs/feedback-polaris-feedback--docs)：Polaris Banner、Modal 和 Toast 交互。
-- [Save Flow / AppSaveBar](?path=/docs/save-flow-appsavebar--docs)：dirty 状态、保存、丢弃和 fallback Save Bar。
+- [Save Flow / AppSaveBar](?path=/docs/save-flow-appsavebar--docs)：dirty 状态、保存、丢弃和 App Bridge 原生 Save Bar。
 - [Navigation / useAppNavigation](?path=/docs/navigation-useappnavigation--docs)：应用内、Admin 和外部链接导航。
 - [Resource Picker / useProductPicker](?path=/docs/resource-picker-useproductpicker--docs)：选择参数、取消结果和 host fallback。
 - [Analytics / createAnalytics](?path=/docs/analytics-createanalytics--docs)：事件属性、adapter 和状态反馈。
@@ -60,7 +60,7 @@ export function App() {
 ## Shopify host 与 fallback
 
 - 在 Embedded App 中，App Bridge adapter 会优先使用宿主提供的能力。
-- 没有 App Bridge 时，Navigation 使用浏览器导航，Resource Picker 返回 `canceled: true`，Save Bar 使用 Polaris fallback。
+- 没有 App Bridge 时，Navigation 使用浏览器导航，Resource Picker 返回 `canceled: true`，Save Bar 默认不渲染；需要自定义或本地 fallback 时通过 `renderers.saveBar` 提供。
 - 外部 URL 仅允许安全协议；Admin 目标必须是相对 Shopify Admin 路径。
 - 这些 fallback 便于本地开发和测试，但生产 Embedded App 仍应配置真实宿主能力。
 

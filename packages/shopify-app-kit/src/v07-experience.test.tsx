@@ -163,7 +163,12 @@ describe("0.7.x experience", () => {
         <Frame>
           <ShopifyAppKitProvider appName="Demo" locale="zh-CN">
             <ConfirmDialog open title="删除？" onCancel={() => undefined} onConfirm={() => undefined} />
-            <AppSaveBar dirty onSave={() => undefined} onDiscard={() => undefined} />
+            <AppSaveBar
+              dirty
+              onSave={() => undefined}
+              onDiscard={() => undefined}
+              adapter={{ show: () => undefined, hide: () => undefined }}
+            />
           </ShopifyAppKitProvider>
         </Frame>
       </AppProvider>

@@ -20,7 +20,7 @@ Wrap the application with Polaris `AppProvider` and `Frame`, then mount `Shopify
 
 ## Feedback and save flow
 
-- `AppBanner`, `AppModal`, `ConfirmDialog`, `ToastProvider`, and `AppSaveBar` use Polaris defaults.
+- `AppBanner`, `AppModal`, `ConfirmDialog`, and `ToastProvider` use Polaris defaults. `AppSaveBar` uses the native App Bridge `ui-save-bar` when a Save Bar adapter is available; without an adapter it is hidden by default. Use `renderers.saveBar` for a custom UI or local fallback.
 - Modal Escape handling, focus restoration, scroll locking, and toast queue limits are now covered by tests.
 - Keep `ToastProvider` inside the Polaris/App Kit provider composition.
 

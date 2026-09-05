@@ -15,22 +15,19 @@
 实际发布包位于 [`packages/shopify-app-kit`](./packages/shopify-app-kit)。
 
 - [npm 包](https://www.npmjs.com/package/@standhigher/shopify-app-kit)
-- [Storybook 示例](https://standhigher.github.io/shopify-app-kit/)
 - [Core HTTP 与 Error](./packages/shopify-app-kit/docs/core.zh-CN.md)
 - [Core HTTP / Error 设计实现说明](./packages/shopify-app-kit/docs/core-http-error-design.zh-CN.md)
 - [Analytics 使用说明](./packages/shopify-app-kit/docs/analytics.zh-CN.md)
 - [使用文档](./packages/shopify-app-kit/docs/business-users.md)
 - [开发文档](./packages/shopify-app-kit/docs/development.md)
 - [发布文档](./packages/shopify-app-kit/docs/release.md)
-- [兼容矩阵](./packages/shopify-app-kit/docs/compatibility.md)
-- [API 稳定性](./packages/shopify-app-kit/docs/api-stability.md)
 - [演进规划](./docs/roadmap.md)
 - [更新日志](./CHANGELOG.md)
 
 ## 安装
 
 ```bash
-npm install @standhigher/shopify-app-kit @shopify/polaris react react-dom
+npm install @standhigher/shopify-app-kit react react-dom
 ```
 
 ## 快速示例
@@ -49,27 +46,7 @@ npm run lint
 npm run test
 npm run typecheck
 npm run build
-npm run verify:package
 npm run build-storybook
-npm --prefix packages/shopify-app-kit run test:e2e
 ```
 
 完整 API 和能力说明见包 README：[`packages/shopify-app-kit/README.md`](./packages/shopify-app-kit/README.md)。
-
-## 发布
-
-发布前先在仓库根目录登录 npmjs：
-
-```bash
-npm run login:npm
-```
-
-请按终端输出的链接完成 npmjs 网页认证。
-
-完成发布前检查并确认当前 npmjs 账号具有发布权限后，再执行：
-
-```bash
-npm run publish:pkg
-```
-
-该命令只会将 `@standhigher/shopify-app-kit` 发布到 npmjs 公共 registry，不会发布标记为私有的 workspace 根包。
