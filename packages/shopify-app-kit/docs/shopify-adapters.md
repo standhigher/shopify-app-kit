@@ -4,8 +4,8 @@
 
 - 显式传入 Provider 的 adapter 优先级最高。
 - 未传入时读取浏览器 `window.shopify`。
-- SSR、非 Embedded 环境或宿主能力不存在时安全降级：Save Bar 使用 Polaris fallback，Navigation 使用浏览器导航，Picker 返回 `{ canceled: true, selection: [] }`。
-- 宿主 API 抛错会原样返回给调用方；Save Bar 会记录 warning 并切换到 Polaris fallback。
+- SSR、非 Embedded 环境或宿主能力不存在时安全降级：Save Bar 默认不渲染 UI（可通过自定义 renderer 提供 fallback），Navigation 使用浏览器导航，Picker 返回 `{ canceled: true, selection: [] }`。
+- 宿主 API 抛错会原样返回给调用方；Save Bar 会记录 warning 并停止默认渲染，避免隐式引入 Polaris CSS。
 
 宿主也可以显式创建 adapter：
 

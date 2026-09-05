@@ -1,5 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { ContextualSaveBar } from "@shopify/polaris";
+import { createElement, useContext, useEffect, useMemo, useState } from "react";
 import { defaultMessages } from "../i18n/defaultMessages";
 import { ShopifyAppKitContext } from "../providers/ShopifyAppKitContext";
 import { createShopifySaveBarAdapter } from "../shopify-adapters";
@@ -14,6 +13,26 @@ export interface AppSaveBarProps {
   discardLabel?: string;
   onSave: () => Promise<void> | void;
   onDiscard: () => Promise<void> | void;
+}
+
+function NativeSaveBar({
+  id,
+  saving,
+  saveLabel,
+  discardLabel,
+  onSave,
+  onDiscard
+}: Omit<AppSaveBarProps, "adapter">) {
+  return createElement(
+    "ui-save-bar",
+    { id, "data-app-kit-save-bar": "" },
+    createElement(
+      "button",
+      { variant: "primary", disabled: saving, onClick: () => void onSave() },
+      saveLabel ?? "Save"
+    ),
+    createElement("button", { disabled: saving, onClick: () => void onDiscard() }, discardLabel ?? "Discard")
+  );
 }
 
 export function AppSaveBar({
@@ -47,7 +66,7 @@ export function AppSaveBar({
       if (!active) return;
       setBridgeFailed(true);
       if (typeof console !== "undefined") {
-        console.warn("Shopify App Bridge Save Bar unavailable; using Polaris fallback.", error);
+        console.warn("Shopify App Bridge Save Bar unavailable; provide renderers.saveBar for a custom fallback.", error);
       }
     });
     return () => {
@@ -56,22 +75,22 @@ export function AppSaveBar({
     };
   }, [adapter, bridgeFailed, dirty, id]);
 
-  if (!dirty || (adapter && !bridgeFailed)) return null;
+  if (!dirty) return null;
 
   const CustomRenderer = context?.renderers?.saveBar;
-  const DefaultSaveBar = (props: Omit<AppSaveBarProps, "adapter">) => (
-    <div data-app-kit-save-bar="">
-      <ContextualSaveBar
-        saveAction={{ content: props.saveLabel ?? messages.save, loading: props.saving, disabled: props.saving, onAction: props.onSave }}
-        discardAction={{ content: props.discardLabel ?? messages.discard, disabled: props.saving, onAction: props.onDiscard }}
-      />
-    </div>
-  );
+  const defaultProps = {
+    dirty,
+    saving,
+    id,
+    saveLabel: saveLabel ?? messages.save,
+    discardLabel: discardLabel ?? messages.discard,
+    onSave,
+    onDiscard
+  } satisfies Omit<AppSaveBarProps, "adapter">;
   if (CustomRenderer) {
-    return <CustomRenderer dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} DefaultComponent={DefaultSaveBar} />;
+    return <CustomRenderer {...defaultProps} DefaultComponent={NativeSaveBar} />;
   }
 
-  return (
-    <DefaultSaveBar dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} />
-  );
+  if (!adapter || bridgeFailed) return null;
+  return <NativeSaveBar {...defaultProps} />;
 }

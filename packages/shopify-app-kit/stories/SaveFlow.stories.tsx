@@ -3,7 +3,9 @@ import { useState } from "react";
 import { AppSaveBar } from "../src/save-flow";
 import { SaveFlowDocs } from "./docs/SaveFlowDocs";
 
-function SaveDemo() { const [dirty, setDirty] = useState(true); return <div style={{ padding: 24 }}><p>Change the draft, then save or discard.</p><button onClick={() => setDirty(true)}>Edit draft</button><AppSaveBar dirty={dirty} onSave={() => setDirty(false)} onDiscard={() => setDirty(false)} />{!dirty ? <p role="status">Saved</p> : null}</div>; }
+const storySaveBarAdapter = { show: () => undefined, hide: () => undefined };
+
+function SaveDemo() { const [dirty, setDirty] = useState(true); return <div style={{ padding: 24 }}><p>Change the draft, then save or discard.</p><button onClick={() => setDirty(true)}>Edit draft</button><AppSaveBar adapter={storySaveBarAdapter} dirty={dirty} onSave={() => setDirty(false)} onDiscard={() => setDirty(false)} />{!dirty ? <p role="status">Saved</p> : null}</div>; }
 const meta = {
   title: "Save Flow/AppSaveBar",
   component: SaveDemo,
