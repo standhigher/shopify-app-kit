@@ -74,10 +74,12 @@ export function App() {
 }
 ```
 
-`AppBanner`, `AppModal`, `ConfirmDialog`, and `AppSaveBar` render Polaris
-components by default. `AppSaveBar` uses Polaris `ContextualSaveBar`, so it
-also belongs below the host `Frame`. The package does not add `AppProvider` or
-`Frame` implicitly.
+`AppBanner`, `AppModal`, and `ConfirmDialog` render Polaris components by
+default. `AppSaveBar` uses Shopify App Bridge's native `ui-save-bar` when a
+Save Bar adapter is available, so it does not require Polaris CSS or a host
+`Frame`. Without an adapter it renders nothing by default; pass
+`renderers.saveBar` to provide a custom or non-Embedded UI. The package does
+not add `AppProvider` or `Frame` implicitly.
 
 Import only the domain you need through subpath exports:
 
@@ -99,7 +101,7 @@ import { ApiError } from "@standhigher/shopify-app-kit/error";
 | `@standhigher/shopify-app-kit/http` | Typed HTTP client for embedded app backend calls, timeout, request id, GET retry, response unwrapping |
 | `@standhigher/shopify-app-kit/error` | `ApiError`, backend envelope detection, error normalization |
 | `@standhigher/shopify-app-kit/feedback` | Toasts, banners, modals, confirm dialog, promise-based confirmation hook |
-| `@standhigher/shopify-app-kit/save-flow` | Dirty form state, save bar fallback, browser leave guard |
+| `@standhigher/shopify-app-kit/save-flow` | Dirty form state, App Bridge save bar, browser leave guard |
 | `@standhigher/shopify-app-kit/navigation` | App route navigation, Shopify Admin links, safe external links |
 | `@standhigher/shopify-app-kit/resource-picker` | Product and collection picker hooks backed by host adapters |
 | `@standhigher/shopify-app-kit/analytics` | Global event facade, event schema validation, adapter fan-out, console/noop/backend adapters |

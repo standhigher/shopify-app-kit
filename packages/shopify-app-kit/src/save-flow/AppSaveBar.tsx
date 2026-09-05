@@ -15,26 +15,6 @@ export interface AppSaveBarProps {
   onDiscard: () => Promise<void> | void;
 }
 
-function NativeSaveBar({
-  id,
-  saving,
-  saveLabel,
-  discardLabel,
-  onSave,
-  onDiscard
-}: Omit<AppSaveBarProps, "adapter">) {
-  return createElement(
-    "ui-save-bar",
-    { id, "data-app-kit-save-bar": "" },
-    createElement(
-      "button",
-      { variant: "primary", disabled: saving, onClick: () => void onSave() },
-      saveLabel ?? "Save"
-    ),
-    createElement("button", { disabled: saving, onClick: () => void onDiscard() }, discardLabel ?? "Discard")
-  );
-}
-
 export function AppSaveBar({
   dirty,
   saving = false,
@@ -66,7 +46,7 @@ export function AppSaveBar({
       if (!active) return;
       setBridgeFailed(true);
       if (typeof console !== "undefined") {
-        console.warn("Shopify App Bridge Save Bar unavailable; provide renderers.saveBar for a custom fallback.", error);
+      console.warn("Shopify App Bridge Save Bar unavailable; the default Save Bar is hidden.", error);
       }
     });
     return () => {
@@ -75,22 +55,31 @@ export function AppSaveBar({
     };
   }, [adapter, bridgeFailed, dirty, id]);
 
-  if (!dirty) return null;
-
   const CustomRenderer = context?.renderers?.saveBar;
-  const defaultProps = {
-    dirty,
-    saving,
-    id,
-    saveLabel: saveLabel ?? messages.save,
-    discardLabel: discardLabel ?? messages.discard,
-    onSave,
-    onDiscard
-  } satisfies Omit<AppSaveBarProps, "adapter">;
+  const DefaultSaveBar = (props: Omit<AppSaveBarProps, "adapter">) =>
+    createElement(
+      "ui-save-bar",
+      { id: props.id, "data-app-kit-save-bar": "", "aria-busy": props.saving || undefined },
+      createElement(
+        "button",
+        { type: "button", variant: "primary", disabled: props.saving, onClick: props.onSave },
+        props.saveLabel ?? messages.save
+      ),
+      createElement(
+        "button",
+        { type: "button", disabled: props.saving, onClick: props.onDiscard },
+        props.discardLabel ?? messages.discard
+      )
+    );
+
+  if (!dirty) return null;
   if (CustomRenderer) {
-    return <CustomRenderer {...defaultProps} DefaultComponent={NativeSaveBar} />;
+    return <CustomRenderer dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} DefaultComponent={DefaultSaveBar} />;
   }
 
   if (!adapter || bridgeFailed) return null;
-  return <NativeSaveBar {...defaultProps} />;
+
+  return (
+    <DefaultSaveBar dirty={dirty} saving={saving} id={id} saveLabel={saveLabel} discardLabel={discardLabel} onSave={onSave} onDiscard={onDiscard} />
+  );
 }

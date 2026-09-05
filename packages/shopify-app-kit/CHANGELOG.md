@@ -1,14 +1,10 @@
 # Changelog
 
-## 1.0.3 - 2026-09-04
-
-- Polished Storybook Docs pages with structured sections for summaries, parameters, usage steps, host requirements, and fallback behavior.
-- Added a Storybook smoke test covering the structured documentation layout.
-
 ## 1.0.2 - 2026-09-04
 
 - Added Storybook Getting Started and feature parameter usage guidance.
 - Clarified Polaris host setup, App Bridge adapters, and fallback behavior.
+- Simplified `AppSaveBar` to use the native App Bridge `ui-save-bar`; custom renderers remain available and missing adapters no longer render a Polaris fallback.
 
 ## 1.0.1 - 2026-09-04
 
