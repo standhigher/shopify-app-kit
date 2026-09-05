@@ -11,9 +11,9 @@ export function SaveFlowDocs() {
         <tr><td><code>id</code></td><td><code>string</code></td><td><code>app-kit-save-bar</code></td><td>宿主 Save Bar 的唯一标识。</td></tr>
         <tr><td><code>adapter</code></td><td><code>SaveBarAdapter</code></td><td>—</td><td>显式注入的宿主 Save Bar 能力。</td></tr>
       </tbody></table>}
-      steps={<ol><li>示例初始为 dirty，查看 Polaris fallback Save Bar。</li><li>点击 <strong>Save</strong> 或 <strong>Discard</strong>，状态变为 Saved。</li><li>点击 <strong>Edit draft</strong>，再次进入 dirty 状态。</li></ol>}
-      hostRequirements={<p>Embedded App 可注入 App Bridge Save Bar adapter；宿主仍需提供 Polaris <code>AppProvider</code>、<code>Frame</code> 和 CSS 作为 fallback。</p>}
-      fallback={<p>没有 adapter 或 adapter 调用失败时，自动回退到 Polaris <code>ContextualSaveBar</code>。离开保护只适用于浏览器页面存在 dirty 状态的场景。</p>}
+      steps={<ol><li>示例初始为 dirty，查看 App Bridge 原生 Save Bar action。</li><li>点击 <strong>Save</strong> 或 <strong>Discard</strong>，状态变为 Saved。</li><li>点击 <strong>Edit draft</strong>，再次进入 dirty 状态。</li></ol>}
+      hostRequirements={<p>Embedded App 需要提供 App Bridge Save Bar runtime；该路径不需要引入 Polaris CSS。</p>}
+      fallback={<p>没有 adapter 或 adapter 调用失败时不渲染默认 Save Bar；如需非 Embedded 或 Polaris UI，请通过 <code>renderers.saveBar</code> 传入自定义实现。</p>}
       notes={<p>保存失败不应清除 dirty 状态；保存过程中再次编辑时，最新编辑仍应保持为未保存。</p>}
     />
   );
