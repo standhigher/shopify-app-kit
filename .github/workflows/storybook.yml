@@ -43,7 +43,10 @@ jobs:
           STORYBOOK_BASE_PATH: /shopify-app-kit/
 
       - name: Verify Storybook output
-        run: test -f packages/shopify-app-kit/storybook-static/index.html
+        run: |
+          test -f packages/shopify-app-kit/storybook-static/index.html
+          test -f packages/shopify-app-kit/storybook-static/products/index.html
+          test -f packages/shopify-app-kit/storybook-static/products/assets/besttrack.png
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -53,3 +56,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify deployed Products page
+        run: curl --fail --retry 5 --retry-delay 5 --retry-connrefused -I "${{ steps.deployment.outputs.page_url }}products/"

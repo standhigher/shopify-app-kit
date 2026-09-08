@@ -33,5 +33,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm --prefix packages/shopify-app-kit run test:e2e
       - name: Verify Storybook static output
-        run: test -f packages/shopify-app-kit/storybook-static/index.html
+        run: |
+          test -f packages/shopify-app-kit/storybook-static/index.html
+          test -f packages/shopify-app-kit/storybook-static/products/index.html
+          test -f packages/shopify-app-kit/storybook-static/products/assets/besttrack.png
       - run: npm run pack:dry-run

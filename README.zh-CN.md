@@ -24,6 +24,23 @@
 - [演进规划](./docs/roadmap.md)
 - [更新日志](./CHANGELOG.md)
 
+## standhigher 出品
+
+`@standhigher/shopify-app-kit` 由 standhigher 为 Shopify 应用团队构建。访问
+[standhigher Products](https://standhigher.github.io/shopify-app-kit/products/?utm_source=GitHub&utm_medium=social&utm_content=standhigher-shopify-app-kit)，
+了解帮助商家增长的应用。
+
+| 应用 | 可帮助商家完成 |
+| --- | --- |
+| [BestTrack Order Tracking](https://apps.shopify.com/besttrack?utm_source=GitHub&utm_medium=social) | 创建品牌化订单追踪体验，减少客服咨询。 |
+| [Bestreach: Email&SMS Marketing](https://apps.shopify.com/bestreach-email-sms-marketing?utm_source=GitHub&utm_medium=social) | 通过个性化邮件和短信活动提升客户留存。 |
+| [BestUpsell](https://apps.shopify.com/bestupsellapp?utm_source=GitHub&utm_medium=social) | 添加加购、捆绑、购物车优惠和购后优惠。 |
+| [BestFeed AI](https://apps.shopify.com/bestfeed?utm_source=GitHub&utm_medium=social) | 优化商品内容，提升在 AI 搜索和发现中的表现。 |
+| [BestSourcing AI Inventory](https://apps.shopify.com/bestsourcing?utm_source=GitHub&utm_medium=social) | 预测库存、规划补货并监控库存健康度。 |
+| [Bestros](https://apps.shopify.com/bestros?utm_source=GitHub&utm_medium=social) | 通过订单级客户旅程了解跨渠道归因。 |
+| [BestBundle: AI Bundles](https://apps.shopify.com/bestbundle?utm_source=GitHub&utm_medium=social) | 创建 AI 驱动的捆绑与赠品优惠，提高客单价。 |
+| [SonarFulfill Easy Dropshipping](https://apps.shopify.com/sonarfulfill?utm_source=GitHub&utm_medium=social) | 更快发现、完善并发布代发货商品。 |
+
 ## 安装
 
 ```bash

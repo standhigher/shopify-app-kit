@@ -23,6 +23,23 @@ The publishable package lives in [`packages/shopify-app-kit`](./packages/shopify
 - [Roadmap to 1.0.0](./docs/roadmap.md)
 - [Changelog](./CHANGELOG.md)
 
+## Built by standhigher
+
+`@standhigher/shopify-app-kit` is built by standhigher for Shopify app teams.
+Explore [standhigher Products](https://standhigher.github.io/shopify-app-kit/products/?utm_source=GitHub&utm_medium=social&utm_content=standhigher-shopify-app-kit)
+to discover apps that help merchants grow.
+
+| App | What it helps with |
+| --- | --- |
+| [BestTrack Order Tracking](https://apps.shopify.com/besttrack?utm_source=GitHub&utm_medium=social) | Create branded order tracking experiences and reduce support questions. |
+| [Bestreach: Email&SMS Marketing](https://apps.shopify.com/bestreach-email-sms-marketing?utm_source=GitHub&utm_medium=social) | Run personalized email and SMS campaigns for customer retention. |
+| [BestUpsell](https://apps.shopify.com/bestupsellapp?utm_source=GitHub&utm_medium=social) | Add upsells, bundles, cart offers, and post-purchase deals. |
+| [BestFeed AI](https://apps.shopify.com/bestfeed?utm_source=GitHub&utm_medium=social) | Optimize product content for AI search and discovery. |
+| [BestSourcing AI Inventory](https://apps.shopify.com/bestsourcing?utm_source=GitHub&utm_medium=social) | Forecast inventory, plan restocks, and monitor stock health. |
+| [Bestros](https://apps.shopify.com/bestros?utm_source=GitHub&utm_medium=social) | Understand cross-channel attribution with order-level customer journeys. |
+| [BestBundle: AI Bundles](https://apps.shopify.com/bestbundle?utm_source=GitHub&utm_medium=social) | Create AI-powered bundle and gift offers that increase order value. |
+| [SonarFulfill Easy Dropshipping](https://apps.shopify.com/sonarfulfill?utm_source=GitHub&utm_medium=social) | Discover, refine, and publish dropshipping products faster. |
+
 ## Install
 
 ```bash

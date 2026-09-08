@@ -4,6 +4,20 @@ All notable changes to this project are documented here.
 
 This project follows semantic versioning before `1.0.0` with the usual pre-1.0 caveat: minor versions may introduce API adjustments while the package is stabilizing.
 
+## [1.0.4] - 2026-09-08
+
+### Documentation
+
+- Added the standhigher Products page, official Shopify App Store recommendations, and package-level UTM attribution for the npm and GitHub README paths.
+- Added contract tests and GitHub Pages checks for Products page assets and post-deployment availability.
+
+## [1.0.3] - 2026-09-04
+
+### Documentation
+
+- Polished Storybook Docs pages with structured sections for summaries, parameters, usage steps, host requirements, and fallback behavior.
+- Added a Storybook smoke test covering the structured documentation layout.
+
 ## [1.0.2] - 2026-09-04
 
 ### Documentation
