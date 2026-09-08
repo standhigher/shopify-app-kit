@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -46,5 +47,3 @@ jobs:
           esac
           npm publish --access public --tag "$tag" --provenance
         working-directory: packages/shopify-app-kit
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
